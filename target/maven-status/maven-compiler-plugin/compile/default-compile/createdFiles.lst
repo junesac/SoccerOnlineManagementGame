@@ -1,0 +1,6 @@
+com\config\WebConfig.class
+com\controller\RegistrationController.class
+com\config\AppInitializer.class
+com\config\CORSFilter.class
+com\controller\LoginController.class
+com\controller\TeamController.class
