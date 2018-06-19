@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-	@RequestMapping("/")
+	@RequestMapping("/get")
 	public String register() {
 		return "Registration Controller.";
 	}

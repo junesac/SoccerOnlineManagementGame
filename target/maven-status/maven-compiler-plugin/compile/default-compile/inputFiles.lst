@@ -1,6 +1,8 @@
+D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\SpringSecurityConfig.java
 D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\WebConfig.java
 D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\controller\TeamController.java
+D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\core\SpringSecurityInitializer.java
 D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\controller\LoginController.java
-D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\AppInitializer.java
+D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\core\AppInitializer.java
 D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\config\CORSFilter.java
 D:\Dev\Workspaces\ToptalWorkspace\SoccerOnlineManagementGame\src\main\java\com\controller\RegistrationController.java

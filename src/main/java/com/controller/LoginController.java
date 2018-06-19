@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-	@RequestMapping("/")
+	@RequestMapping("/get")
 	public String login() {
 		return "Login Controller.";
 	}
