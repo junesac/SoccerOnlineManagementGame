@@ -1,0 +1,69 @@
+<div ng-if="!authorized">You are unauthorized....</div>
+
+<div class="panel panel-info">
+	<my-header></my-header>
+
+	<div ng-if="authorized">
+		<div>
+			<table class="table">
+				<tr>
+					<td>UserName</td>
+					<td>Role</td>
+					<td>User Setting</td>
+				</tr>
+				<tr ng-repeat="user in users">
+					<td>{{user.userName}}</td>
+					<td>{{user.roleName}}</td>
+					<td>{{user.userSetting}}</td>
+					<td><a href="#/updateUserInfo/{{user.userId}}">Update</a>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-warning"
+							ng-click="remove(user.userId)">Delete</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Code to Add User Activity. -->
+
+
+		<div class="panel-body form-horizontal" role="form">
+			<h3>Add a new User</h3>
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">UserName</label>
+				<div class="col-xs-3">
+					<input type="text" name="name" ng-model="user.userName"
+						class="form-control edit" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="pwd" class="col-sm-2 control-label">Password</label>
+				<div class="col-xs-3">
+					<input type="password" name="pwd" ng-model="user.password"
+						class="form-control edit">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="userSetting" class="col-sm-2 control-label">User
+					Setting (Goal)</label>
+				<div class="col-xs-3">
+					<input type="text" name="userSetting" ng-model="user.userSetting"
+						class="form-control edit" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="owner" class="col-sm-2 control-label">Role</label>
+				<div class="col-xs-3">
+					<select class="form-control edit" ng-model="user.rId">
+						<option ng-repeat="x in roles" value="{{x.rid}}">{{x.rolename}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default"
+						ng-click="addUser(user)">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

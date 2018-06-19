@@ -1,0 +1,36 @@
+<div class="panel panel-info">
+	<my-header></my-header>
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Update UserInfo</h3>
+	</div>
+	<div class="panel-body form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">UserName</label>
+			<div class="col-xs-3">
+				<input type="text" name="userName" ng-model="user.userName"
+					class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="userSetting" class="col-sm-2 control-label">User Setting (Goal)</label>
+			<div class="col-xs-3">
+				<input type="text" name="userSetting" ng-model="user.userSetting"
+					class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="role" class="col-sm-2 control-label">Role</label>
+			<div class="col-xs-3">
+				<select class="form-control" ng-model="selectedRole">
+					<option ng-repeat="x in roles" value="{{x.rid}}">{{x.rolename}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" class="btn btn-default" ng-click="update()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>

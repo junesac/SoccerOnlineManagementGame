@@ -1,0 +1,126 @@
+<div ng-if="!authorized">You are unauthorized....</div>
+
+<div class="panel panel-info">
+	<my-header></my-header>
+
+	<div ng-if="authorized">
+
+		<div
+			ng-style="userSetting <= actualGoalDone && {'background-color':'green'}  || userSetting > actualGoalDone && {'background-color':'red'}"
+			class="form-group">
+			<label for="userSetting" class="col-sm-2 control-label">User
+				Setting</label> {{userSetting}}
+		</div>
+		<br>
+		<div>
+			<div class="form-group">
+				<label for="date" class="col-sm-2 control-label">From Date</label>
+				<div class="col-xs-3">
+					<input type="date" name="fromDate" ng-model="filter.fromDate"
+						class="form-control edit">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="date" class="col-sm-2 control-label">To Date</label>
+				<div class="col-xs-3">
+					<input type="date" name="toDate" ng-model="filter.toDate"
+						class="form-control edit">
+				</div>
+			</div>
+			<br /> <br />
+			<div class="form-group">
+				<label for="time" class="col-sm-2 control-label">From Time :
+				</label>
+				<div class="col-xs-3">
+					<input type="time" name="fromTime" ng-model="filter.fromTime"
+						class="form-control edit">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="time" class="col-sm-2 control-label">To Time :</label>
+				<div class="col-xs-3">
+					<input type="time" name="toTime" ng-model="filter.toTime"
+						class="form-control edit">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default"
+						ng-click="filterData(filter)">Filter</button>
+				</div>
+			</div>
+
+		</div>
+
+		<br /> <br /> <br />
+
+
+		<div>
+			<table class="table">
+				<tr>
+					<td>Name</td>
+					<td>Calories</td>
+					<td>Date</td>
+					<td>Time</td>
+				</tr>
+				<tr ng-repeat="userActivity in userActivities">
+					<td>{{userActivity.uaName}}</td>
+					<td>{{userActivity.calories}}</td>
+					<td><input type="date" name="date"
+						ng-model="userActivity.startDate" class="form-control" readonly></td>
+					<td><input type="time" name="time"
+						ng-model="userActivity.time" class="form-control" readonly></td>
+					<td><a href="#/updateUserActivities/{{userActivity.uaId}}">Update</a>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-warning"
+							ng-click="remove(userActivity.uaId)">Delete</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Code to Add User Activity. -->
+
+
+		<div class="panel-body form-horizontal" role="form">
+			<h3>Add a new Activity</h3>
+			<div class="form-group">
+				<label for="uaName" class="col-sm-2 control-label">Name</label>
+				<div class="col-xs-3">
+					<input type="text" name="uaName" ng-model="userActivity.uaName"
+						class="form-control edit" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="calories" class="col-sm-2 control-label">Calories</label>
+				<div class="col-xs-3">
+					<input type="number" name="calories"
+						ng-model="userActivity.calories" class="form-control edit">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="date" class="col-sm-2 control-label">Date</label>
+				<div class="col-xs-3">
+					<input type="date" name="date" ng-model="userActivity.startDate"
+						class="form-control edit">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="time" class="col-sm-2 control-label">Time</label>
+				<div class="col-xs-3">
+					<input type="time" name="time" ng-model="userActivity.time"
+						class="form-control edit">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default"
+						ng-click="addUserActivity(userActivity)">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
