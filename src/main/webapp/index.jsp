@@ -8,6 +8,7 @@
 <script src="resources/js/lib/angular.min.js"></script>
 <script src="resources/js/lib/angular-route.min.js"></script>
 <script src="resources/js/lib/angular-resource.min.js"></script>
+<script src="resources/js/lib/sweetalert.js"></script>
 
 <script type="text/javascript" src="resources/js/app.js"></script>
 <script type="text/javascript" src="resources/js/controller.js"></script>
