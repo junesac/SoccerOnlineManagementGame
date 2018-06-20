@@ -11,16 +11,13 @@ app.controller('LogoutController', function($rootScope, $scope, $location) {
 });
 
 app.controller('LoginController', function($rootScope, $scope, $location,
-    UserInfoService) {
-
+    UserService) {
     $scope.header = 'Please login';
     $scope.login = function() {
-        UserInfoService.login($scope.credential).then(function(response) {
+        UserService.login($scope.user).then(function(response) {
             if (response.data.userName != null) {
                 $rootScope.authenticated = true;
-                $rootScope.userSetting = response.data.userSetting;;
                 $rootScope.userId = response.data.userId;
-                $rootScope.role = response.data.roleName;
                 $location.path('/home');
             } else {
                 $scope.handleError();
@@ -33,18 +30,10 @@ app.controller('LoginController', function($rootScope, $scope, $location,
     };
 });
 
-app
-    .controller('RegistrationController',
-        function($scope, $location, RoleService, UserInfoService) {
+app.controller('RegistrationController',
+        function($scope, $location, RoleService, UserService) {
             $scope.header = 'Registeration  form';
-
-            RoleService.getRoles().then(function(response) {
-                $scope.roles = response.data;
-                console.log('Roles: ' + response.data);
-            }, function(error) {
-                swal('Unable to load roles');
-            });
-
+            
             $scope.register = function() {
                 console.log('user to register : ' + $scope.user);
 
@@ -54,14 +43,10 @@ app
                 } else if ($scope.user.password == null ||
                     $scope.user.password === '') {
                     swal('Please enter password.');
-                } else if ($scope.user.userSetting == null ||
-                		$scope.user.userSetting === '') {
-                    swal('Please enter user setting.');
-                } else if ($scope.user.rId == null ||
-                    $scope.user.rId === '') {
-                    swal('Please Select a Role.');
+                } else if ($scope.user.password.length < 6) {
+                    swal('Password should be atleast 6 character long.');
                 } else {
-                    UserInfoService.createUser($scope.user).then(
+                    UserService.createUser($scope.user).then(
                         function(response) {
                             swal('User Created Successfully!!!');
                             $location.path('/login');
@@ -83,13 +68,13 @@ app.controller('HomeController', function($scope, $rootScope, $location) {
 });
 
 app.controller('UserActivitiesController', function($scope, $rootScope,
-    $location, UserActivityService, UserInfoService) {
+    $location, UserActivityService, UserService) {
 
 	if (!$rootScope.authenticated) {
         $location.path('/login');
     }
 	
-	UserInfoService.getUserById($rootScope.userId).then(function(response) {
+	UserService.getUserById($rootScope.userId).then(function(response) {
     	$rootScope.userSetting = response.data.userSetting;
     	$rootScope.role = response.data.roleName;
         console.log('response.data' + response.data);
@@ -265,7 +250,7 @@ app
  */
 
 app.controller('UserInfoController', function($scope, $rootScope, $location,
-    RoleService, UserInfoService) {
+    RoleService, UserService) {
 
     if (!$rootScope.authenticated) {
         $location.path('/login');
@@ -273,7 +258,7 @@ app.controller('UserInfoController', function($scope, $rootScope, $location,
 
     
 
-	UserInfoService.getUserById($rootScope.userId).then(function(response) {
+	UserService.getUserById($rootScope.userId).then(function(response) {
     	$rootScope.userSetting = response.data.userSetting;
     	$rootScope.role = response.data.roleName;
         console.log('response.data' + response.data);
@@ -286,7 +271,7 @@ app.controller('UserInfoController', function($scope, $rootScope, $location,
             $scope.header = 'Manage Users';
 
             $scope.loadAllUsers = function() {
-                UserInfoService.getAllUsers().then(function(response) {
+                UserService.getAllUsers().then(function(response) {
                     $scope.users = response.data;
                 }, function(error) {
                     swal('Unable to load Users');
@@ -301,7 +286,7 @@ app.controller('UserInfoController', function($scope, $rootScope, $location,
             });
 
             $scope.remove = function(userId) {
-                UserInfoService.deleteUser(userId).then(function(response) {
+                UserService.deleteUser(userId).then(function(response) {
                     swal('User deleted Successfully!!!');
                     $scope.loadAllUsers();
                 }, function(error) {
@@ -322,7 +307,7 @@ app.controller('UserInfoController', function($scope, $rootScope, $location,
                 } else if (user.rId == null || user.rId === '') {
                     swal('Please Select a Role.');
                 } else {
-                    UserInfoService.createUser(user).then(function(response) {
+                    UserService.createUser(user).then(function(response) {
                         swal('User Created Successfully!!!');
                         $scope.loadAllUsers();
                         $scope.clearFields();
@@ -345,7 +330,7 @@ app.controller('UserInfoController', function($scope, $rootScope, $location,
 });
 
 app.controller('UserUpdateControlller', function($scope, $routeParams,
-    $location, $rootScope, UserInfoService, RoleService) {
+    $location, $rootScope, UserService, RoleService) {
 
     if (!$rootScope.authenticated) {
         $location.path('/login');
@@ -365,7 +350,7 @@ app.controller('UserUpdateControlller', function($scope, $routeParams,
             swal('Unable to load roles');
         });
 
-        UserInfoService.getUserById(id).then(function(response) {
+        UserService.getUserById(id).then(function(response) {
             $scope.user = response.data;
             $scope.selectedRole = $scope.user.rId;
             console.log('response.data' + response.data);
@@ -375,7 +360,7 @@ app.controller('UserUpdateControlller', function($scope, $routeParams,
 
         $scope.update = function() {
             $scope.user.rId = $scope.selectedRole;
-            UserInfoService.updateUser(id, $scope.user).then(
+            UserService.updateUser(id, $scope.user).then(
                 function(response) {
                     swal('User Updated Successfully!!!');
                     

@@ -11,31 +11,31 @@ app.service('RoleService', function($http) {
 	};
 });
 
-app.service('UserInfoService', function($http) {
-	var baseUrlForUserInfo = 'http://localhost:9999/UserActivityTracker/ws/userInfo';
+app.service('UserService', function($http) {
+	var baseUrlForUser = 'ws/user';
 	
 	this.getAllUsers = function() {
-		return $http.get(baseUrlForUserInfo + '/getAllUsers');
+		return $http.get(baseUrlForUser + '/getAllUsers');
 	};
 	
 	this.getUserById = function(id) {
-		return $http.get(baseUrlForUserInfo + '/getUserByUserId/' + id);
+		return $http.get(baseUrlForUser + '/getUserByUserId/' + id);
 	};
 	
 	this.updateUser = function(id, user) {
-		return $http.put(baseUrlForUserInfo + '/updateUser/' + id, user);
+		return $http.put(baseUrlForUser + '/updateUser/' + id, user);
 	};
 	
 	this.createUser = function(user) {
-		return $http.post(baseUrlForUserInfo + '/createUser', user);
+		return $http.post(baseUrlForUser + '/createUser', user);
 	};
 	
 	this.deleteUser = function(userId) {
-		return $http.delete(baseUrlForUserInfo + '/deleteUser/' + userId);
+		return $http.delete(baseUrlForUser + '/deleteUser/' + userId);
 	};
 	
-	this.login = function(credential) {
-		return $http.post(baseUrlForUserInfo + '/login', credential);
+	this.login = function(user) {
+		return $http.post(baseUrlForUser + '/login', user);
 	};
 });
 

@@ -15,21 +15,6 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="userSetting" class="col-sm-2 control-label">User Setting (Goal)</label>
-			<div class="col-xs-3">
-				<input type="text" name="userSetting" ng-model="user.userSetting"
-					class="form-control" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="owner" class="col-sm-2 control-label">Role</label>
-			<div class="col-xs-3">
-				<select class="form-control" ng-model="user.rId">
-					<option ng-repeat="x in roles" value="{{x.rid}}">{{x.rolename}}</option>
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="button" class="btn btn-default" ng-click="register()">Register</button>
 			</div>

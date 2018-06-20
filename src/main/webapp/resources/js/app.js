@@ -1,12 +1,14 @@
 'use strict';
 var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'controllers', 'services' ]);
+
 app.directive('myHeader', function() {
 	return {
 		restrict : 'E',
 		templateUrl : 'resources/pages/header.html'
 	};
 });
+
 app.config(function($routeProvider) {
 	$routeProvider.when('/userActivities', {
 		templateUrl : 'resources/pages/userActivities.html',
