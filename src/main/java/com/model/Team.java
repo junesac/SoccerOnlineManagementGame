@@ -11,6 +11,7 @@ public class Team {
 	private BigInteger teamValue;
 	private BigInteger teamBudget;
 	private List<Player> players;
+	private String owner;
 
 	public Team() {
 
@@ -22,6 +23,14 @@ public class Team {
 		this.players = players;
 		this.teamValue = calculateTeamValue(players);
 		this.teamBudget = new BigInteger("5000");
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	private BigInteger calculateTeamValue(List<Player> players) {
@@ -37,7 +46,7 @@ public class Team {
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", teamName=" + teamName + ", country=" + country + ", teamValue=" + teamValue
-				+ ", teamBudget=" + teamBudget + ", players=" + players + "]";
+				+ ", teamBudget=" + teamBudget + ", players=" + players + ", owner=" + owner + "]";
 	}
 
 	public Long getId() {

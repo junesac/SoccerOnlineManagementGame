@@ -5,7 +5,6 @@ import java.math.BigInteger;
 public class Player {
 
 	private Long id;
-
 	private String firstName;
 	private String lastName;
 	private Country country;
@@ -13,7 +12,15 @@ public class Player {
 	private BigInteger marketValue;
 	private boolean presentOnTransferList;
 	private PlayerType playerType;
-	private Team team;
+	private String owner;
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 
 	public Player() {
 
@@ -33,7 +40,7 @@ public class Player {
 	public String toString() {
 		return "Player [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
 				+ ", age=" + age + ", marketValue=" + marketValue + ", presentOnTransferList=" + presentOnTransferList
-				+ ", playerType=" + playerType + ", team=" + team + "]";
+				+ ", playerType=" + playerType + ", owner=" + owner + "]";
 	}
 
 	public Long getId() {
@@ -98,14 +105,6 @@ public class Player {
 
 	public void setPlayerType(PlayerType playerType) {
 		this.playerType = playerType;
-	}
-
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
 	}
 
 }

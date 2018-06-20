@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.UserDao;
 import com.model.User;
@@ -12,6 +13,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
+	@Transactional
 	public User createUser(User user) {
 		return userDao.createUser(user);
 	}
