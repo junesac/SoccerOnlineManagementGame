@@ -3,69 +3,26 @@
 <div class="panel panel-info">
 	<my-header></my-header>
 
-	<div ng-if="authorized">
-
-		<div
-			ng-style="userSetting <= actualGoalDone && {'background-color':'green'}  || userSetting > actualGoalDone && {'background-color':'red'}"
-			class="form-group">
-			<label for="userSetting" class="col-sm-2 control-label">User
-				Setting</label> {{userSetting}}
-		</div>
-		<br>
-		<div>
-			<div class="form-group">
-				<label for="date" class="col-sm-2 control-label">From Date</label>
-				<div class="col-xs-3">
-					<input type="date" name="fromDate" ng-model="filter.fromDate"
-						class="form-control edit">
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="date" class="col-sm-2 control-label">To Date</label>
-				<div class="col-xs-3">
-					<input type="date" name="toDate" ng-model="filter.toDate"
-						class="form-control edit">
-				</div>
-			</div>
-			<br /> <br />
-			<div class="form-group">
-				<label for="time" class="col-sm-2 control-label">From Time :
-				</label>
-				<div class="col-xs-3">
-					<input type="time" name="fromTime" ng-model="filter.fromTime"
-						class="form-control edit">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="time" class="col-sm-2 control-label">To Time :</label>
-				<div class="col-xs-3">
-					<input type="time" name="toTime" ng-model="filter.toTime"
-						class="form-control edit">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" class="btn btn-default"
-						ng-click="filterData(filter)">Filter</button>
-				</div>
-			</div>
-
-		</div>
-
-		<br /> <br /> <br />
-
-
+	<div ng-if="admin || user">
 		<div>
 			<table class="table">
 				<tr>
-					<td>Name</td>
-					<td>Calories</td>
-					<td>Date</td>
-					<td>Time</td>
+					<td>Team Name : {{}}</td>
+					<td>Team Country : {{}}</td>
+					<td>Team Value : {{}}</td>
+					<td>Team Budget : {{}}</td>
+				</tr>
+			</table>
+		</div>
+		<div> Player Details : </div>
+		<div>
+			<table class="table">
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Country</td>
+					<td>Age</td>
+					<td>Market Value</td>
 				</tr>
 				<tr ng-repeat="userActivity in userActivities">
 					<td>{{userActivity.uaName}}</td>

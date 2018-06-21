@@ -10,9 +10,9 @@ app.directive('myHeader', function() {
 });
 
 app.config(function($routeProvider) {
-	$routeProvider.when('/userActivities', {
-		templateUrl : 'resources/pages/userActivities.html',
-		controller : 'UserActivitiesController'
+	$routeProvider.when('/viewTeam', {
+		templateUrl : 'resources/pages/viewTeam.html',
+		controller : 'TeamController'
 	}).when('/updateUserActivities/:userActivityId', {
 		templateUrl : 'resources/pages/userActivityUpdate.html',
 		controller : 'UserActivityUpdateCtrl'
@@ -31,10 +31,10 @@ app.config(function($routeProvider) {
 	}).when('/register', {
 		templateUrl : 'resources/pages/registrationPage.html',
 		controller : 'RegistrationController'
-	}).when('/', {
+	}).when('/login', {
 		templateUrl : 'resources/pages/loginPage.html',
 		controller : 'LoginController'
 	}).otherwise({
-		redirectTo : '/'
+		redirectTo : '/login'
 	});
 });

@@ -1,10 +1,10 @@
-package com.service;
+package com.dao;
 
 import java.util.List;
 
 import com.model.Team;
 
-public interface TeamService {
+public interface TeamDao {
 
 	Team getTeam();
 

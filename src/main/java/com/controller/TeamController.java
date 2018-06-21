@@ -16,7 +16,7 @@ public class TeamController {
 	@Autowired
 	private TeamService teamService;
 
-	@RequestMapping("/get")
+	@RequestMapping("/getTeam")
 	public Team getTeam() {
 		return teamService.getTeam();
 	}

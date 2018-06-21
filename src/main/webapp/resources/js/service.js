@@ -40,8 +40,18 @@ app.service('UserService', function($http) {
 });
 
 
-app.service('UserActivityService', function($http) {
-	var baseUrlForUserActivity = 'http://localhost:9999/UserActivityTracker/ws/userActivity';
+app.service('TeamService', function($http) {
+	var baseUrlForTeam = 'ws/team';
+	
+	this.getTeam = function(auth) {
+		var config = {headers:  {
+	        'Authorization': auth,
+	        'Accept': 'application/json;odata=verbose',
+	        "X-Testing" : "testing"
+	    	}
+		};
+		return $http.get(baseUrlForTeam + '/getTeam', config);
+	}
 	
 	this.deleteUserActivity = function(uaId) {
 		return $http.delete(baseUrlForUserActivity + '/deleteUserActivity/' + uaId)
