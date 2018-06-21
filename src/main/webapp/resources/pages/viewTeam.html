@@ -1,5 +1,3 @@
-<div ng-if="!authorized">You are unauthorized....</div>
-
 <div class="panel panel-info">
 	<my-header></my-header>
 
@@ -7,10 +5,16 @@
 		<div>
 			<table class="table">
 				<tr>
-					<td>Team Name : {{team.teamName}}</td>
-					<td>Team Country : {{team.country}}</td>
-					<td>Team Value : {{team.teamValue}}</td>
-					<td>Team Budget : {{team.teamBudget}}</td>
+					<td>Team Name</td>
+					<td>Team Country</td>
+					<td>Team Value</td>
+					<td>Team Budget</td>
+				</tr>
+				<tr>
+					<td>{{team.teamName}}</td>
+					<td>{{team.country}}</td>
+					<td>{{team.teamValue}}</td>
+					<td>{{team.teamBudget}}</td>
 				</tr>
 			</table>
 		</div>
@@ -23,14 +27,15 @@
 					<td>Country</td>
 					<td>Age</td>
 					<td>Market Value</td>
+					<td>Player Type</td>
 				</tr>
 				<tr ng-repeat="player in team.players">
 					<td>{{player.firstName}}</td>
-					<td>{{player.lastname}}</td>
+					<td>{{player.lastName}}</td>
 					<td>{{player.country}}</td>
 					<td>{{player.age}}</td>
 					<td>{{player.marketValue}}</td>
-					<td>{{player.playerType}}}</td>
+					<td>{{player.playerType}}</td>
 					<td><a href="#/updateUserActivities/{{userActivity.uaId}}">Update</a>
 						&nbsp;&nbsp;
 						<button type="button" class="btn btn-warning"
