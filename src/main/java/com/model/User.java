@@ -1,10 +1,21 @@
 package com.model;
 
+import java.util.List;
+
 public class User {
 
 	private Long userId;
 	private String userName;
 	private String password;
+	private List<String> roles;
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -32,7 +43,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", roles=" + roles
+				+ "]";
 	}
 
 }

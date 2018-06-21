@@ -5,6 +5,8 @@ var app = angular.module('controllers', []);
 app.controller('LogoutController', function($rootScope, $scope, $location) {
     $scope.logout = function() {
         $rootScope.authenticated = false;
+        $rootScope.roles = [];
+        $rootScope.auth = '';
         $location.path('/login');
     }
     $scope.logout();
@@ -17,7 +19,9 @@ app.controller('LoginController', function($rootScope, $scope, $location,
         UserService.login($scope.user).then(function(response) {
             if (response.data.userName != null) {
                 $rootScope.authenticated = true;
-                $rootScope.userId = response.data.userId;
+                $rootScope.owner = response.data.userName;
+                $rootScope.roles = response.data.roles;
+                $rootScope.auth = btoa($scope.user.userName + ":" + $scope.user.password);
                 $location.path('/home');
             } else {
                 $scope.handleError();
@@ -25,6 +29,8 @@ app.controller('LoginController', function($rootScope, $scope, $location,
         }, function(error) {
             $scope.error = true;
             $rootScope.authenticated = false;
+            $rootScope.auth = '';
+            $rootScope.roles = [];
             $location.path('/');
         });
     };
@@ -60,11 +66,9 @@ app.controller('RegistrationController',
 
 app.controller('HomeController', function($scope, $rootScope, $location) {
     $scope.header = 'Welcome to Home Page';
-
     if (!$rootScope.authenticated) {
         $location.path('/login');
     }
-
 });
 
 app.controller('UserActivitiesController', function($scope, $rootScope,

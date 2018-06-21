@@ -57,19 +57,9 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-	@Override
-	public User login(User user) {
-		User result = jdbcTemplate.queryForObject(
-				"SELECT u.userName FROM users1 u where lower(u.userName) = ? and u.password = ?",
-				new Object[] { user.getUserName().toLowerCase(), user.getPassword() },
-				new BeanPropertyRowMapper<User>(User.class));
-
-		return result;
-	}
-
 	private void createTeamForUser(String owner) {
 
-		// Let's store Team for the user
+		// Let's store Team for the owner
 
 		Long teamId = getMaxId("id", "team");
 		Long playerId = getMaxId("id", "player");
@@ -95,6 +85,17 @@ public class UserDaoImpl implements UserDao {
 
 		}
 
+	}
+
+	@Override
+	public User login(User user) {
+		User result = jdbcTemplate.queryForObject(
+				"SELECT USERNAME, ROLENAME as roles FROM USERS1 U, USER_ROLE UR, ROLES R "
+						+ "WHERE U.USERID=UR.USERID AND UR.RID = R.RID and lower(u.userName) = ? and u.password = ?",
+				new Object[] { user.getUserName().toLowerCase(), user.getPassword() },
+				new BeanPropertyRowMapper<User>(User.class));
+
+		return result;
 	}
 
 }
