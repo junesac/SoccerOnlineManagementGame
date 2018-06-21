@@ -1,10 +1,10 @@
 package com.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,8 +18,8 @@ import org.springframework.web.servlet.view.JstlView;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "dataSource")
-	public DriverManagerDataSource dataSource() {
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+	public BasicDataSource dataSource() {
+		BasicDataSource driverManagerDataSource = new BasicDataSource();
 		driverManagerDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		driverManagerDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
 		driverManagerDataSource.setUsername("sachin");

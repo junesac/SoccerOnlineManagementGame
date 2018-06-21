@@ -6,8 +6,8 @@ import com.model.Team;
 
 public interface TeamDao {
 
-	Team getTeam();
-
 	List<Team> getAllTeams();
+
+	Team getTeam(String owner);
 
 }

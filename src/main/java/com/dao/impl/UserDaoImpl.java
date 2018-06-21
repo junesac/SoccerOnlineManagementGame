@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 
 		jdbcTemplate.update(
 				"INSERT INTO team (id, team_name, country, team_value, team_budget, owner) VALUES (?, ?, ?, ?, ?, ?)",
-				teamId + 1, team.getTeamName(), team.getCountry().getName(), team.getTeamValue().intValue(),
+				teamId + 1, team.getTeamName(), team.getCountry().toString(), team.getTeamValue().intValue(),
 				team.getTeamBudget().intValue(), owner);
 
 		List<Player> players = team.getPlayers();
@@ -81,9 +81,9 @@ public class UserDaoImpl implements UserDao {
 			jdbcTemplate.update(
 					"INSERT INTO player (id, first_name, last_name, country, age, market_value, "
 							+ "present_on_transfer_list, player_type, owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-					playerId++, player.getFirstName(), player.getLastName(), player.getCountry().getName(),
+					playerId++, player.getFirstName(), player.getLastName(), player.getCountry().toString(),
 					player.getAge(), player.getMarketValue().intValue(), isTransferList,
-					player.getPlayerType().getName(), owner);
+					player.getPlayerType().toString(), owner);
 
 		}
 

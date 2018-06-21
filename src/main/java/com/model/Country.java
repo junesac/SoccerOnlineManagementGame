@@ -249,4 +249,8 @@ public enum Country {
 		return VALUES.get(RANDOM.nextInt(SIZE));
 	}
 
+	public static void main(String[] args) {
+		System.out.println(Country.randomCountry().getName());
+	}
+
 }

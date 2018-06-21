@@ -7,10 +7,10 @@
 		<div>
 			<table class="table">
 				<tr>
-					<td>Team Name : {{}}</td>
-					<td>Team Country : {{}}</td>
-					<td>Team Value : {{}}</td>
-					<td>Team Budget : {{}}</td>
+					<td>Team Name : {{team.teamName}}</td>
+					<td>Team Country : {{team.country}}</td>
+					<td>Team Value : {{team.teamValue}}</td>
+					<td>Team Budget : {{team.teamBudget}}</td>
 				</tr>
 			</table>
 		</div>
@@ -24,13 +24,13 @@
 					<td>Age</td>
 					<td>Market Value</td>
 				</tr>
-				<tr ng-repeat="userActivity in userActivities">
-					<td>{{userActivity.uaName}}</td>
-					<td>{{userActivity.calories}}</td>
-					<td><input type="date" name="date"
-						ng-model="userActivity.startDate" class="form-control" readonly></td>
-					<td><input type="time" name="time"
-						ng-model="userActivity.time" class="form-control" readonly></td>
+				<tr ng-repeat="player in team.players">
+					<td>{{player.firstName}}</td>
+					<td>{{player.lastname}}</td>
+					<td>{{player.country}}</td>
+					<td>{{player.age}}</td>
+					<td>{{player.marketValue}}</td>
+					<td>{{player.playerType}}}</td>
 					<td><a href="#/updateUserActivities/{{userActivity.uaId}}">Update</a>
 						&nbsp;&nbsp;
 						<button type="button" class="btn btn-warning"
@@ -39,45 +39,5 @@
 			</table>
 		</div>
 
-		<!-- Code to Add User Activity. -->
-
-
-		<div class="panel-body form-horizontal" role="form">
-			<h3>Add a new Activity</h3>
-			<div class="form-group">
-				<label for="uaName" class="col-sm-2 control-label">Name</label>
-				<div class="col-xs-3">
-					<input type="text" name="uaName" ng-model="userActivity.uaName"
-						class="form-control edit" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="calories" class="col-sm-2 control-label">Calories</label>
-				<div class="col-xs-3">
-					<input type="number" name="calories"
-						ng-model="userActivity.calories" class="form-control edit">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="date" class="col-sm-2 control-label">Date</label>
-				<div class="col-xs-3">
-					<input type="date" name="date" ng-model="userActivity.startDate"
-						class="form-control edit">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="time" class="col-sm-2 control-label">Time</label>
-				<div class="col-xs-3">
-					<input type="time" name="time" ng-model="userActivity.time"
-						class="form-control edit">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" class="btn btn-default"
-						ng-click="addUserActivity(userActivity)">Submit</button>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>

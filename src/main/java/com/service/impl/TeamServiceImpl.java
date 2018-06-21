@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dao.TeamDao;
@@ -19,7 +21,10 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
 	public Team getTeam() {
-		return teamDao.getTeam();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String owner = auth.getName();
+
+		return teamDao.getTeam(owner);
 	}
 
 	@Override
