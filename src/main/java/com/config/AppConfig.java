@@ -9,11 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.dao.UserDao;
-import com.dao.impl.UserDaoImpl;
-import com.service.UserService;
-import com.service.impl.UserServiceImpl;
-
 @Configuration
 @EnableTransactionManagement
 public class AppConfig {
@@ -29,16 +24,6 @@ public class AppConfig {
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
 		return new JdbcTemplate(dataSource);
-	}
-
-	@Bean
-	public UserService userService() {
-		return new UserServiceImpl();
-	}
-
-	@Bean
-	public UserDao userDao() {
-		return new UserDaoImpl();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.dao.UserDao;
 import com.exception.UserException;
@@ -13,6 +14,7 @@ import com.model.Player;
 import com.model.Team;
 import com.model.User;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	@Autowired

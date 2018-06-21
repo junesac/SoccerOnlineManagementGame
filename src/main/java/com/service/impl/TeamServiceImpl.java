@@ -10,7 +10,7 @@ import com.dao.TeamDao;
 import com.model.Team;
 import com.service.TeamService;
 
-@Service("teamService")
+@Service
 public class TeamServiceImpl implements TeamService {
 
 	@Autowired
