@@ -18,6 +18,7 @@
 <script type="text/javascript" src="resources/js/controllers/LogoutController.js"></script>
 <script type="text/javascript" src="resources/js/controllers/RegistrationController.js"></script>
 <script type="text/javascript" src="resources/js/controllers/TeamController.js"></script>
+<script type="text/javascript" src="resources/js/controllers/TransferListController.js"></script>
 <script type="text/javascript" src="resources/js/services.js"></script>
 
 </head>

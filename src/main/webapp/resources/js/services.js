@@ -37,6 +37,11 @@ app.service('PlayerService', function($http, CommonService) {
 		var config = CommonService.getConfig();
 		return $http.put(baseUrlForPlayer + '/removeFromTransferList/' + id, config);
 	}
+	
+	this.getTransferList = function() {
+		var config = CommonService.getConfig();
+		return $http.get(baseUrlForPlayer + '/getTransferList', config);
+	}
 });
 
 app.service('UserService', function($http) {
@@ -77,3 +82,5 @@ app.service('TeamService', function($http, CommonService) {
 	}
 	
 });
+
+

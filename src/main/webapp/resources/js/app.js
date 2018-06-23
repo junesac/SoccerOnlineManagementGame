@@ -2,7 +2,8 @@
 var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'SoccerManagementApp.Home', 'SoccerManagementApp.Registration',
 		'SoccerManagementApp.Logout', 'SoccerManagementApp.Login',
-		'SoccerManagementApp.Team', 'Services' ]);
+		'SoccerManagementApp.Team', 'SoccerManagementApp.TransferList',
+		'Services' ]);
 
 app.directive('myHeader', function() {
 	return {
@@ -15,6 +16,9 @@ app.config(function($routeProvider) {
 	$routeProvider.when('/viewTeam', {
 		templateUrl : 'resources/pages/viewTeam.html',
 		controller : 'TeamController'
+	}).when('/viewTransferList', {
+		templateUrl : 'resources/pages/viewTransferList.html',
+		controller : 'TransferListController'
 	}).when('/updateUserActivities/:userActivityId', {
 		templateUrl : 'resources/pages/userActivityUpdate.html',
 		controller : 'UserActivityUpdateCtrl'

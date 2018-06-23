@@ -10,15 +10,15 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
-	$scope.loadAllUsers = function() {
-		TeamService.getTeam($rootScope.auth).then(function(response) {
+	$scope.loadTeam = function() {
+		TeamService.getTeam().then(function(response) {
 			$scope.team = response.data;
 			console.log(response.data);
 		}, function(error) {
 			swal('Unable to load Team details.');
 		});
 	}
-	$scope.loadAllUsers();
+	$scope.loadTeam();
 
 	$scope.addToTransferList = function(id) {
 		$scope.team.players.find(o => o.id === id).presentOnTransferList = true;
