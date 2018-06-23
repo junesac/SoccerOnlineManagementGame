@@ -1,10 +1,13 @@
 package com.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.dao.PlayerDao;
+import com.model.Player;
 import com.service.PlayerService;
 
 @Service
@@ -23,6 +26,11 @@ public class PlayerServiceImpl implements PlayerService {
 	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
 	public void removeFromTransferList(int id) {
 		playerDao.removeFromTransferList(id);
+	}
+
+	@Override
+	public List<Player> getTransferList() {
+		return playerDao.getTransferList();
 	}
 
 }

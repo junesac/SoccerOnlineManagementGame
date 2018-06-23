@@ -1,11 +1,14 @@
 package com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.model.Player;
 import com.service.PlayerService;
 
 @RestController
@@ -23,6 +26,11 @@ public class PlayerController {
 	@RequestMapping(value = "/removeFromTransferList/{id}", method = RequestMethod.PUT)
 	public void removeFromTransferList(@PathVariable("id") int id) {
 		playerService.removeFromTransferList(id);
+	}
+
+	@RequestMapping("/getTransferList")
+	public List<Player> getTransferList() {
+		return playerService.getTransferList();
 	}
 
 }
