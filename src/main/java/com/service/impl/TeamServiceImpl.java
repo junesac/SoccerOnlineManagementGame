@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.TeamDao;
 import com.model.Team;
@@ -23,7 +24,6 @@ public class TeamServiceImpl implements TeamService {
 	public Team getTeam() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String owner = auth.getName();
-
 		return teamDao.getTeam(owner);
 	}
 
@@ -31,6 +31,13 @@ public class TeamServiceImpl implements TeamService {
 	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public List<Team> getAllTeams() {
 		return teamDao.getAllTeams();
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	public Team saveTeam(Team team) {
+		return teamDao.saveTeam(team);
 	}
 
 }

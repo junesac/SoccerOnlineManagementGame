@@ -2,40 +2,53 @@
 	<my-header></my-header>
 
 	<div ng-if="admin || user">
+
+		<div style="position: relative">
+			<button type="button" class="btn btn-success"
+				style="position: absolute; right: 0; bottom: 1px"
+				ng-click="saveChanges(team)">Save Changes</button>
+		</div>
+
 		<div>
 			<table class="table">
 				<tr>
-					<td>Team Name</td>
-					<td>Team Country</td>
-					<td>Team Value</td>
-					<td>Team Budget</td>
+					<th>Team Name</th>
+					<th>Team Country</th>
+					<th>Team Value</th>
+					<th>Team Budget</th>
 				</tr>
 				<tr>
-					<td>{{team.teamName}}</td>
-					<td>{{team.country}}</td>
+					<td><input type="text" name="userName"
+						ng-model="team.teamName" class="form-control" /></td>
+					<td><select ng-model="team.country"
+						ng-options="key as value for (key , value) in countries"></select></td>
 					<td>{{team.teamValue}}</td>
 					<td>{{team.teamBudget}}</td>
 				</tr>
 			</table>
 		</div>
+
 		<div>Player Details :</div>
 		<div>
 			<table class="table">
 				<tr>
-					<td>First Name</td>
-					<td>Last Name</td>
-					<td>Country</td>
-					<td>Age</td>
-					<td>Market Value</td>
-					<td>Player Type</td>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Country</th>
+					<th>Age</th>
+					<th>Market Value</th>
+					<th>Player Type</th>
 				</tr>
 				<tr ng-repeat="player in team.players">
-					<td>{{player.firstName}}</td>
-					<td>{{player.lastName}}</td>
-					<td>{{player.country}}</td>
+					<td><input type="text" name="userName"
+						ng-model="player.firstName" class="form-control" /></td>
+					<td><input type="text" name="userName"
+						ng-model="player.lastName" class="form-control" /></td>
+					<td><select ng-model="player.country"
+						ng-options="key as value for (key , value) in countries"></select></td>
 					<td>{{player.age}}</td>
 					<td>{{player.marketValue}}</td>
-					<td>{{player.playerType}}</td>
+					<td>{{playerTypes[player.playerType]}}</td>
 					<td>
 						<button type="button" ng-hide="player.presentOnTransferList"
 							class="btn btn-success" ng-click="addToTransferList(player.id)">Send

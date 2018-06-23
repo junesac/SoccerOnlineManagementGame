@@ -26,11 +26,11 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public Team getTeam(String owner) {
 
-		Team team = jdbcTemplate.queryForObject(
-				"select t.id as id,t.team_name as teamName, t.country as country, t.team_value as"
-						+ " teamValue, t.TEAM_BUDGET as teamBudget, t.owner as owner from"
-						+ " team t where t.owner = ?",
-				new Object[] { owner }, new BeanPropertyRowMapper<Team>(Team.class));
+		String query = "select t.id as id,t.team_name as teamName, t.country as country, t.team_value as"
+				+ " teamValue, t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.owner = ?";
+
+		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner },
+				new BeanPropertyRowMapper<Team>(Team.class));
 
 		List<Player> players = playerDao.getPlayersBasedOnOwner(owner);
 		team.setPlayers(players);
@@ -42,6 +42,17 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public List<Team> getAllTeams() {
 		return Arrays.asList(PlayersUtility.getTeam());
+	}
+
+	@Override
+	public Team saveTeam(Team team) {
+
+		String query = "update team set team_name = ?, country = ? where id = ?";
+		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getId());
+
+		playerDao.savePlayers(team.getPlayers());
+
+		return team;
 	}
 
 }

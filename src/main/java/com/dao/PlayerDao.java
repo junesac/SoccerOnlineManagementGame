@@ -13,4 +13,6 @@ public interface PlayerDao {
 	List<Player> getTransferList();
 
 	List<Player> getPlayersBasedOnOwner(String owner);
+
+	void savePlayers(List<Player> players);
 }

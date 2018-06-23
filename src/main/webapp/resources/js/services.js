@@ -44,6 +44,21 @@ app.service('PlayerService', function($http, CommonService) {
 	}
 });
 
+app.service('StaticService', function($http, CommonService) {
+	var baseUrlForStatic = 'ws/static';
+	
+	this.getAllCountries = function() {
+		return $http.get(baseUrlForStatic + '/getAllCountries');
+	}
+	
+	this.getAllPlayerTypes = function() {
+		return $http.get(baseUrlForStatic + '/getAllPlayerTypes');
+	}
+	
+});
+
+
+
 app.service('UserService', function($http) {
 	var baseUrlForUser = 'ws/user';
 	
@@ -79,6 +94,11 @@ app.service('TeamService', function($http, CommonService) {
 	this.getTeam = function() {
 		var config = CommonService.getConfig();
 		return $http.get(baseUrlForTeam + '/getTeam', config);
+	}
+	
+	this.saveChanges = function(team) {
+		var config = CommonService.getConfig();
+		return $http.put(baseUrlForTeam + '/saveTeam', team, config);
 	}
 	
 });

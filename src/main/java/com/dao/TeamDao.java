@@ -10,4 +10,6 @@ public interface TeamDao {
 
 	Team getTeam(String owner);
 
+	Team saveTeam(Team team);
+
 }

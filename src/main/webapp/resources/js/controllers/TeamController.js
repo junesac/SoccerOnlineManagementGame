@@ -3,7 +3,7 @@
 var app = angular.module('SoccerManagementApp.Team', []);
 
 app.controller('TeamController', function($scope, $rootScope, $location,
-		TeamService, PlayerService) {
+		TeamService, PlayerService, StaticService) {
 
 	$scope.header = 'Team Details';
 
@@ -19,6 +19,35 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		});
 	}
 	$scope.loadTeam();
+	
+	$scope.getAllCountries = function() {
+		StaticService.getAllCountries().then(function(response) {
+			$scope.countries = response.data;
+			console.log(response.data);
+		}, function(error) {
+			swal('Unable to load Countries.');
+		});
+	}
+	$scope.getAllCountries();
+	
+	$scope.getAllPlayerTypes = function() {
+		StaticService.getAllPlayerTypes().then(function(response) {
+			$scope.playerTypes = response.data;
+			console.log(response.data);
+		}, function(error) {
+			swal('Unable to load PlayerTypes.');
+		});
+	}
+	$scope.getAllPlayerTypes();
+	
+	$scope.saveChanges = function(team) {
+		TeamService.saveChanges(team).then(function(response) {
+			$scope.team = response.data;
+			console.log(response.data);
+		}, function(error) {
+			swal('Unable to Save changes.');
+		});
+	}
 
 	$scope.addToTransferList = function(id) {
 		$scope.team.players.find(o => o.id === id).presentOnTransferList = true;
@@ -35,5 +64,7 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		}, function(error) {
 		});
 	}
+	
+	
 	
 });

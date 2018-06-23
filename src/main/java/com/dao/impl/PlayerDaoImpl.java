@@ -67,4 +67,16 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 		return players;
 	}
+
+	@Override
+	public void savePlayers(List<Player> players) {
+
+		String query = "update player set first_name = ?, last_name = ?, country = ? where id = ?";
+
+		for (Player player : players) {
+			jdbcTemplate.update(query, player.getFirstName(), player.getLastName(), player.getCountry().toString(),
+					player.getId());
+		}
+
+	}
 }
