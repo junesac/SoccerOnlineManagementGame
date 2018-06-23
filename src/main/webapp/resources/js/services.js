@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('services', []);
+var app = angular.module('Services', []);
 
 app.service('RoleService', function($http) {
 	var baseUrlForRoles = 'http://localhost:9999/UserActivityTracker/ws/role';

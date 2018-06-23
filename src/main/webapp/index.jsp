@@ -13,8 +13,12 @@
 <script src="resources/js/lib/sweetalert.min.js"></script>
 
 <script type="text/javascript" src="resources/js/app.js"></script>
-<script type="text/javascript" src="resources/js/controller.js"></script>
-<script type="text/javascript" src="resources/js/service.js"></script>
+<script type="text/javascript" src="resources/js/controllers/HomeController.js"></script>
+<script type="text/javascript" src="resources/js/controllers/LoginController.js"></script>
+<script type="text/javascript" src="resources/js/controllers/LogoutController.js"></script>
+<script type="text/javascript" src="resources/js/controllers/RegistrationController.js"></script>
+<script type="text/javascript" src="resources/js/controllers/TeamController.js"></script>
+<script type="text/javascript" src="resources/js/services.js"></script>
 
 </head>
 <body>

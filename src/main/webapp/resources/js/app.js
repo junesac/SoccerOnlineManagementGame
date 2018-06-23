@@ -1,6 +1,8 @@
 'use strict';
 var app = angular.module('SoccerManagementApp', [ 'ngRoute',
-		'controllers', 'services' ]);
+		'SoccerManagementApp.Home', 'SoccerManagementApp.Registration',
+		'SoccerManagementApp.Logout', 'SoccerManagementApp.Login',
+		'SoccerManagementApp.Team', 'Services' ]);
 
 app.directive('myHeader', function() {
 	return {
