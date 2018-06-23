@@ -65,6 +65,7 @@ public class UserDaoImpl implements UserDao {
 
 		Long teamId = getMaxId("id", "team");
 		Long playerId = getMaxId("id", "player");
+		playerId++;
 
 		Team team = PlayersUtility.getTeam();
 

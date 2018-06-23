@@ -2,10 +2,10 @@
 
 var app = angular.module('controllers', []);
 
-app.controller('LogoutController', function($rootScope, $scope, $location) {
+app.controller('LogoutController', function($rootScope, CommonService, $scope, $location) {
 	$scope.logout = function() {
 		$rootScope.authenticated = false;
-		$rootScope.auth = '';
+		CommonService.auth = '';
 		$rootScope.admin = false;
 		$rootScope.user = false;
 		$location.path('/login');
@@ -13,7 +13,7 @@ app.controller('LogoutController', function($rootScope, $scope, $location) {
 	$scope.logout();
 });
 
-app.controller('LoginController', function($rootScope, $scope, $location,
+app.controller('LoginController', function($rootScope, $scope, $location, CommonService, 
 		UserService) {
 	$scope.header = 'Please login';
 	$scope.login = function() {
@@ -21,7 +21,7 @@ app.controller('LoginController', function($rootScope, $scope, $location,
 				function(response) {
 					if (response.data.userName != null) {
 						$rootScope.authenticated = true;
-						$rootScope.auth = btoa($scope.user.userName + ":"
+						CommonService.auth = btoa($scope.user.userName + ":"
 								+ $scope.user.password);
 						$rootScope.owner = response.data.userName;
 						$rootScope.admin = response.data.roles
@@ -35,7 +35,7 @@ app.controller('LoginController', function($rootScope, $scope, $location,
 				}, function(error) {
 					$scope.error = true;
 					$rootScope.authenticated = false;
-					$rootScope.auth = '';
+					CommonService.auth = '';
 					$rootScope.admin = false;
 					$rootScope.user = false;
 					$location.path('/');
@@ -80,7 +80,7 @@ app.controller('HomeController', function($scope, $rootScope, $location) {
 });
 
 app.controller('TeamController', function($scope, $rootScope, $location,
-		TeamService) {
+		TeamService, PlayerService) {
 
 	$scope.header = 'Team Details';
 
@@ -97,4 +97,20 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	}
 	$scope.loadAllUsers();
 
+	$scope.addToTransferList = function(id) {
+		$scope.team.players.find(o => o.id === id).presentOnTransferList = true;
+		PlayerService.addToTransferList(id).then(function(response) {
+			console.log('updated Player details');
+		}, function(error) {
+		});
+	}
+	
+	$scope.removeFromTransferList = function(id) {
+		$scope.team.players.find(o => o.id === id).presentOnTransferList = false;
+		PlayerService.removeFromTransferList(id).then(function(response) {
+			console.log('updated Player details');
+		}, function(error) {
+		});
+	}
+	
 });

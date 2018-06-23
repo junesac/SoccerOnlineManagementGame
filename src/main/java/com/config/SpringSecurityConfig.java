@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/ws/registration/**", "/ws/login/**").permitAll()
+		http.authorizeRequests().antMatchers("/ws/registration/**", "/ws/user/login/**").permitAll()
 				.antMatchers("/ws/team/**", "/ws/user/**", "/ws/player/**")
 				.access("hasRole('ADMIN') or hasRole('USER')").anyRequest().authenticated().and().csrf().disable()
 				.httpBasic();
@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**", "**/login");
+		web.ignoring().antMatchers("/resources/**", "/login/**");
 	}
 
 }

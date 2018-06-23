@@ -11,6 +11,34 @@ app.service('RoleService', function($http) {
 	};
 });
 
+app.service('CommonService', function($rootScope) {
+	
+	this.auth = '';
+	this.getConfig = function() {
+		return {headers:  {
+	        'Authorization': this.auth,
+	        'Accept': 'application/json;odata=verbose',
+	        "X-Testing" : "testing"
+	    	}
+		};
+	}
+	
+});
+
+app.service('PlayerService', function($http, CommonService) {
+	var baseUrlForPlayer = 'ws/player';
+	
+	this.addToTransferList = function(id) {
+		var config = CommonService.getConfig();
+		return $http.put(baseUrlForPlayer + '/addToTransferList/' + id, config);
+	}
+	
+	this.removeFromTransferList = function(id) {
+		var config = CommonService.getConfig();
+		return $http.put(baseUrlForPlayer + '/removeFromTransferList/' + id, config);
+	}
+});
+
 app.service('UserService', function($http) {
 	var baseUrlForUser = 'ws/user';
 	
@@ -40,36 +68,12 @@ app.service('UserService', function($http) {
 });
 
 
-app.service('TeamService', function($http) {
+app.service('TeamService', function($http, CommonService) {
 	var baseUrlForTeam = 'ws/team';
 	
-	this.getTeam = function(auth) {
-		var config = {headers:  {
-	        'Authorization': auth,
-	        'Accept': 'application/json;odata=verbose',
-	        "X-Testing" : "testing"
-	    	}
-		};
+	this.getTeam = function() {
+		var config = CommonService.getConfig();
 		return $http.get(baseUrlForTeam + '/getTeam', config);
 	}
 	
-	this.deleteUserActivity = function(uaId) {
-		return $http.delete(baseUrlForUserActivity + '/deleteUserActivity/' + uaId)
-	};
-	
-	this.getAllUserActivities = function(userId, filter) {
-		return $http.post(baseUrlForUserActivity + '/getUserActivities/' + userId , filter);
-	};
-	
-	this.createUserActivity = function(userId, userActivity) {
-		return $http.post(baseUrlForUserActivity + '/createUserActivity/' + userId, userActivity);
-	}
-	
-	this.getUserActivitiesByUserId = function(id) {
-		return $http.get(baseUrlForUserActivity + '/getUserActivitiesByUserId/' + id);
-	}
-	
-	this.updateUserActivity = function(id, userActivity) {
-		return $http.put(baseUrlForUserActivity + '/updateUserActivity/' + id, userActivity);
-	}
 });
