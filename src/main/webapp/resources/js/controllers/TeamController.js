@@ -3,7 +3,7 @@
 var app = angular.module('SoccerManagementApp.Team', []);
 
 app.controller('TeamController', function($scope, $rootScope, $location,
-		TeamService, PlayerService, StaticService) {
+		TeamService, PlayerService, CommonService) {
 
 	$scope.header = 'Team Details';
 
@@ -20,25 +20,8 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	}
 	$scope.loadTeam();
 	
-	$scope.getAllCountries = function() {
-		StaticService.getAllCountries().then(function(response) {
-			$scope.countries = response.data;
-			console.log(response.data);
-		}, function(error) {
-			swal('Unable to load Countries.');
-		});
-	}
-	$scope.getAllCountries();
-	
-	$scope.getAllPlayerTypes = function() {
-		StaticService.getAllPlayerTypes().then(function(response) {
-			$scope.playerTypes = response.data;
-			console.log(response.data);
-		}, function(error) {
-			swal('Unable to load PlayerTypes.');
-		});
-	}
-	$scope.getAllPlayerTypes();
+	$scope.countries = CommonService.countries;
+	$scope.playerTypes = CommonService.playerTypes;
 	
 	$scope.saveChanges = function(team) {
 		TeamService.saveChanges(team).then(function(response) {
