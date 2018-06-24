@@ -51,6 +51,12 @@ app
 						return $http.get(baseUrlForPlayer + '/getTransferList',
 								config);
 					}
+					
+					this.buyPlayer = function(id) {
+						var config = CommonService.getConfig();
+						return $http.put(baseUrlForPlayer
+								+ '/buyPlayer/' + id, config);
+					}
 				});
 
 app.service('StaticService', function($http, CommonService) {

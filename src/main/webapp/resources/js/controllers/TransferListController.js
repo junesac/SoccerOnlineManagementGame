@@ -62,11 +62,19 @@ app.controller('TransferListController', function($rootScope, CommonService,
 		PlayerService.getTransferList().then(function(response) {
 			$scope.players = response.data;
 			$scope.filterData = $scope.players;
-			console.log(response.data);
 		}, function(error) {
 			swal('Unable to load Transfer List.');
 		});
 	}
 	$scope.loadTransferList();
+	
+	$scope.buyPlayer = function(id) {
+		PlayerService.buyPlayer(id).then(function(response) {
+			$scope.players = $scope.players.filter((player) => player.id != id);
+			$scope.filterData = $scope.players;
+		}, function(error) {
+			swal('Unable to Purchase player.');
+		});
+	}
 
 });

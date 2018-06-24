@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.PlayerDao;
 import com.model.Player;
@@ -31,6 +32,12 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public List<Player> getTransferList() {
 		return playerDao.getTransferList();
+	}
+
+	@Override
+	@Transactional
+	public void buyPlayer(int id) {
+		playerDao.buyPlayer(id);
 	}
 
 }

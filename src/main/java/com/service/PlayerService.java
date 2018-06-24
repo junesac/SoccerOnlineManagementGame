@@ -12,4 +12,6 @@ public interface PlayerService {
 
 	List<Player> getTransferList();
 
+	void buyPlayer(int id);
+
 }

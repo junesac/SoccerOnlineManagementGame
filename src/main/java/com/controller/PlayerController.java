@@ -28,6 +28,11 @@ public class PlayerController {
 		playerService.removeFromTransferList(id);
 	}
 
+	@RequestMapping(value = "/buyPlayer/{id}", method = RequestMethod.PUT)
+	public void buyPlayer(@PathVariable("id") int id) {
+		playerService.buyPlayer(id);
+	}
+
 	@RequestMapping("/getTransferList")
 	public List<Player> getTransferList() {
 		return playerService.getTransferList();

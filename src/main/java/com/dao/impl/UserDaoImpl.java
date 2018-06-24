@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dao.UserDao;
 import com.exception.UserException;
-import com.helper.PlayersUtility;
+import com.helper.TeamUtility;
 import com.model.Player;
 import com.model.Team;
 import com.model.User;
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 		Long playerId = getMaxId("id", "player");
 		playerId++;
 
-		Team team = PlayersUtility.getTeam();
+		Team team = TeamUtility.getTeam();
 
 		jdbcTemplate.update(
 				"INSERT INTO team (id, team_name, country, team_value, team_budget, owner) VALUES (?, ?, ?, ?, ?, ?)",

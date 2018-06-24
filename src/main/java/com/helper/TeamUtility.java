@@ -12,7 +12,7 @@ import com.model.Player;
 import com.model.PlayerType;
 import com.model.Team;
 
-public class PlayersUtility {
+public class TeamUtility {
 
 	public static Team getTeam() {
 

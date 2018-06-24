@@ -7,11 +7,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.dao.PlayerDao;
+import com.helper.AppUtility;
 import com.model.Country;
 import com.model.Player;
 import com.model.PlayerType;
@@ -35,8 +34,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<Player> getTransferList() {
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String owner = auth.getName();
+		String owner = AppUtility.getOwner();
 
 		String query = "select p.id, first_name, last_name, p.country, age, market_value,"
 				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
@@ -86,5 +84,14 @@ public class PlayerDaoImpl implements PlayerDao {
 					player.getId());
 		}
 
+	}
+
+	@Override
+	public void buyPlayer(int id) {
+
+		String owner = AppUtility.getOwner();
+
+		this.jdbcTemplate.update("update player set PRESENT_ON_TRANSFER_LIST = ?, owner = ? where id = ?", 0, owner,
+				id);
 	}
 }

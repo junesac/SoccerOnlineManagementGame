@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dao.PlayerDao;
 import com.dao.TeamDao;
-import com.helper.PlayersUtility;
+import com.helper.TeamUtility;
 import com.model.Player;
 import com.model.Team;
 
@@ -41,7 +41,7 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override
 	public List<Team> getAllTeams() {
-		return Arrays.asList(PlayersUtility.getTeam());
+		return Arrays.asList(TeamUtility.getTeam());
 	}
 
 	@Override
