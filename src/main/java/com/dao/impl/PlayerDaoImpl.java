@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.dao.PlayerDao;
@@ -32,11 +34,15 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public List<Player> getTransferList() {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String owner = auth.getName();
+
 		String query = "select p.id, first_name, last_name, p.country, age, market_value,"
 				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
-				+ "from team t, player p where t.owner=p.owner and PRESENT_ON_TRANSFER_LIST = 1";
+				+ "from team t, player p where t.owner=p.owner and PRESENT_ON_TRANSFER_LIST = ? and lower(p.owner) != ? ";
 
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, 1, owner.toLowerCase());
 		return PlayerMapper(rows);
 	}
 
