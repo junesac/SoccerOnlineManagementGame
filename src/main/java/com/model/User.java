@@ -1,19 +1,19 @@
 package com.model;
 
-import java.util.List;
+import java.util.Set;
 
 public class User {
 
 	private Long userId;
 	private String userName;
 	private String password;
-	private List<String> roles;
+	private Set<String> roles;
 
-	public List<String> getRoles() {
+	public Set<String> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<String> roles) {
+	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
 
@@ -43,8 +43,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", roles=" + roles
-				+ "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", roles=" + roles + "]";
 	}
 
 }

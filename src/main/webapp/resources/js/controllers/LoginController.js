@@ -6,12 +6,12 @@ app.controller('LoginController', function($rootScope, $scope, $location, Common
 		UserService) {
 	$scope.header = 'Please login';
 	$scope.login = function() {
+		CommonService.auth = btoa($scope.user.userName + ":"
+				+ $scope.user.password);
 		UserService.login($scope.user).then(
 				function(response) {
 					if (response.data.userName != null) {
 						$rootScope.authenticated = true;
-						CommonService.auth = btoa($scope.user.userName + ":"
-								+ $scope.user.password);
 						$rootScope.owner = response.data.userName;
 						$rootScope.admin = response.data.roles
 								.indexOf("ROLE_ADMIN") > -1;

@@ -9,6 +9,4 @@ public interface UserDao {
 
 	User createUser(User user);
 
-	User login(User user);
-
 }

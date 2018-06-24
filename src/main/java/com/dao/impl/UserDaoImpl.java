@@ -3,7 +3,6 @@ package com.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -88,17 +87,6 @@ public class UserDaoImpl implements UserDao {
 
 		}
 
-	}
-
-	@Override
-	public User login(User user) {
-		User result = jdbcTemplate.queryForObject(
-				"SELECT USERNAME, ROLENAME as roles FROM USERS1 U, USER_ROLE UR, ROLES R "
-						+ "WHERE U.USERID=UR.USERID AND UR.RID = R.RID and lower(u.userName) = ? and u.password = ?",
-				new Object[] { user.getUserName().toLowerCase(), user.getPassword() },
-				new BeanPropertyRowMapper<User>(User.class));
-
-		return result;
 	}
 
 }
