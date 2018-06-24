@@ -3,6 +3,68 @@
 
 	<div ng-if="admin || user">
 
+		<div>
+			<div class="form-group">
+				<label for="country" class="col-sm-2 control-label">Country</label>
+				<div class="col-xs-3">
+					<td><select ng-model="filter.country"
+						ng-options="key as value for (key , value) in countries"></select></td>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="teamName" class="col-sm-2 control-label">Team
+					Name</label>
+				<div class="col-xs-3">
+					<input type="text" name="teamName" ng-model="filter.teamName"
+						class="form-control edit">
+				</div>
+			</div>
+			<br /> <br />
+
+			<div class="form-group">
+				<label for="playerFirstName" class="col-sm-2 control-label">Player
+					First Name</label>
+				<div class="col-xs-3">
+					<input type="text" name="playerFirstName"
+						ng-model="filter.firstName" class="form-control edit">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="playerLastName" class="col-sm-2 control-label">Player
+					Last Name</label>
+				<div class="col-xs-3">
+					<input type="text" name="playerLastName" ng-model="filter.lastName"
+						class="form-control edit">
+				</div>
+			</div>
+
+
+			<br /> <br /> <br />
+
+			<div class="form-group">
+				<label for="playerValue" class="col-sm-2 control-label">Player
+					Value</label>
+				<div class="col-xs-3">
+					<input type="text" name="playerValue" ng-model="filter.playerValue"
+						class="form-control edit">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-xs-3">
+					<button type="button" class="btn btn-success"
+						ng-click="clearFilters()">CLear Filters</button>
+				</div>
+			</div>
+
+		</div>
+
+		<br /> <br /> <br />
+
+
+
 		<div>Player Details :</div>
 		<div>
 			<table class="table">
@@ -15,13 +77,14 @@
 					<td>Player Type</td>
 					<td>Player Owner</td>
 				</tr>
-				<tr ng-repeat="player in players">
+				<tr
+					ng-repeat="player in players | filter: filter.country | filter: filter.teamName | filter: filter.firstName | filter: filter.lastName | filter: filter.playerValue">
 					<td>{{player.firstName}}</td>
 					<td>{{player.lastName}}</td>
-					<td>{{player.country}}</td>
+					<td>{{countries[player.country]}}</td>
 					<td>{{player.age}}</td>
 					<td>{{player.marketValue}}</td>
-					<td>{{player.playerType}}</td>
+					<td>{{playerTypes[player.playerType]}}</td>
 					<td>{{player.owner}}</td>
 					<td>
 						<button type="button" ng-hide="player.presentOnTransferList"

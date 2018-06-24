@@ -2,13 +2,23 @@
 
 var app = angular.module('SoccerManagementApp.TransferList', []);
 
-app.controller('TransferListController', function($rootScope, CommonService, $scope,
-		$location, PlayerService) {
-	$scope.header = 'Transfer List';
+app.controller('TransferListController', function($rootScope, CommonService,
+		$scope, $location, PlayerService) {
 
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
+	$scope.header = 'Transfer List';
+
+	$scope.countries = CommonService.countries;
+	$scope.playerTypes = CommonService.playerTypes;
+
+	$scope.clearFilters = function() {
+		$scope.filter = {};
+	}
+
+	$scope.clearFilters();
+
 	$scope.loadTransferList = function() {
 		PlayerService.getTransferList().then(function(response) {
 			$scope.players = response.data;

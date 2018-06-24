@@ -10,6 +10,10 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
+	
+	$scope.countries = CommonService.countries;
+	$scope.playerTypes = CommonService.playerTypes;
+	
 	$scope.loadTeam = function() {
 		TeamService.getTeam().then(function(response) {
 			$scope.team = response.data;
@@ -20,8 +24,6 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	}
 	$scope.loadTeam();
 	
-	$scope.countries = CommonService.countries;
-	$scope.playerTypes = CommonService.playerTypes;
 	
 	$scope.saveChanges = function(team) {
 		TeamService.saveChanges(team).then(function(response) {

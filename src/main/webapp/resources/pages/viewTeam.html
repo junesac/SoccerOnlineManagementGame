@@ -40,9 +40,9 @@
 					<th>Player Type</th>
 				</tr>
 				<tr ng-repeat="player in team.players">
-					<td><input type="text" name="userName"
+					<td><input type="text" name="firstName"
 						ng-model="player.firstName" class="form-control" /></td>
-					<td><input type="text" name="userName"
+					<td><input type="text" name="lastName"
 						ng-model="player.lastName" class="form-control" /></td>
 					<td><select ng-model="player.country"
 						ng-options="key as value for (key , value) in countries"></select></td>
