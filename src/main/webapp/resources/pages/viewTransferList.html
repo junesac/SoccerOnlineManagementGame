@@ -13,13 +13,13 @@
 			</div>
 
 			<div class="form-group">
-				<label for="teamName" class="col-sm-2 control-label">Team
-					Name</label>
+				<label for="playerType" class="col-sm-2 control-label">Player Type</label>
 				<div class="col-xs-3">
-					<input type="text" name="teamName" ng-model="filter.teamName"
-						class="form-control edit">
+					<td><select ng-model="filter.playerType"
+						ng-options="key as value for (key , value) in playerTypes"></select></td>
 				</div>
 			</div>
+
 			<br /> <br />
 
 			<div class="form-group">
@@ -45,17 +45,35 @@
 
 			<div class="form-group">
 				<label for="playerValue" class="col-sm-2 control-label">Player
-					Value</label>
+					Value </label>
 				<div class="col-xs-3">
-					<input type="text" name="playerValue" ng-model="filter.playerValue"
+					<input type="number" name="playerValue"
+						ng-model="filter.marketValue" class="form-control edit">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="teamName" class="col-sm-2 control-label">Team
+					Name </label>
+				<div class="col-xs-3">
+					<input type="text" name="teamName" ng-model="filter.teamName"
 						class="form-control edit">
+				</div>
+			</div>
+
+			<br /> <br /> <br />
+
+			<div class="form-group">
+				<div class="col-xs-3">
+					<button type="button" class="btn btn-success"
+						ng-click="clearFilters()">Clear</button>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div class="col-xs-3">
-					<button type="button" class="btn btn-success"
-						ng-click="clearFilters()">CLear Filters</button>
+					<button type="button" class="btn btn-success" ng-click="search()">Search</button>
 				</div>
 			</div>
 
@@ -76,9 +94,9 @@
 					<td>Market Value</td>
 					<td>Player Type</td>
 					<td>Player Owner</td>
+					<td>Current Team Name</td>
 				</tr>
-				<tr
-					ng-repeat="player in players | filter: filter.country | filter: filter.teamName | filter: filter.firstName | filter: filter.lastName | filter: filter.playerValue">
+				<tr ng-repeat="player in filterData">
 					<td>{{player.firstName}}</td>
 					<td>{{player.lastName}}</td>
 					<td>{{countries[player.country]}}</td>
@@ -86,6 +104,7 @@
 					<td>{{player.marketValue}}</td>
 					<td>{{playerTypes[player.playerType]}}</td>
 					<td>{{player.owner}}</td>
+					<td>{{player.teamName}}</td>
 					<td>
 						<button type="button" ng-hide="player.presentOnTransferList"
 							class="btn btn-success" ng-click="addToTransferList(player.id)">Send

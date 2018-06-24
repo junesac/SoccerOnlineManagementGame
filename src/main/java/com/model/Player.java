@@ -13,6 +13,15 @@ public class Player {
 	private boolean presentOnTransferList;
 	private PlayerType playerType;
 	private String owner;
+	private String teamName;
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 
 	public String getOwner() {
 		return owner;
@@ -40,7 +49,7 @@ public class Player {
 	public String toString() {
 		return "Player [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", country=" + country
 				+ ", age=" + age + ", marketValue=" + marketValue + ", presentOnTransferList=" + presentOnTransferList
-				+ ", playerType=" + playerType + ", owner=" + owner + "]";
+				+ ", playerType=" + playerType + ", owner=" + owner + ", teamName=" + teamName + "]";
 	}
 
 	public Long getId() {

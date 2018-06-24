@@ -32,8 +32,9 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public List<Player> getTransferList() {
-		String query = " select id, first_name, last_name, country, age, market_value, "
-				+ "present_on_transfer_list, player_type," + " owner from player where PRESENT_ON_TRANSFER_LIST = 1";
+		String query = "select p.id, first_name, last_name, p.country, age, market_value,"
+				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
+				+ "from team t, player p where t.owner=p.owner and PRESENT_ON_TRANSFER_LIST = 1";
 
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
 		return PlayerMapper(rows);
@@ -63,6 +64,7 @@ public class PlayerDaoImpl implements PlayerDao {
 					((BigDecimal) row.get("present_on_transfer_list")).intValue() > 0 ? true : false);
 			player.setPlayerType(PlayerType.valueOf((String) row.get("player_type")));
 			player.setOwner((String) row.get("owner"));
+			player.setTeamName((String) row.get("teamname"));
 			players.add(player);
 		}
 		return players;
