@@ -35,6 +35,8 @@
 <script type="text/javascript" src="resources/js/services/StaticService.js"></script>
 <script type="text/javascript" src="resources/js/services/TeamService.js"></script>
 <script type="text/javascript" src="resources/js/services/UserService.js"></script>
+<script type="text/javascript" src="resources/js/services/NotificationService.js"></script>
+
 
 </head>
 

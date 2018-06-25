@@ -113,8 +113,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		// Let's send notification for the current owner
 		Long notificationId = getMaxId("id", "notifications");
 
-		jdbcTemplate.update("INSERT INTO notifications (id, previousOwner, newOwner, seen) VALUES (?, ?, ?, ?)",
-				notificationId + 1, player.getOwner(), owner, 0);
+		jdbcTemplate.update(
+				"INSERT INTO notifications (id, previousOwner, newOwner, seen, player_name) VALUES (?, ?, ?, ?, ?)",
+				notificationId + 1, player.getOwner(), owner, 0, player.getFirstName() + " " + player.getLastName());
 
 		this.jdbcTemplate.update("update player set PRESENT_ON_TRANSFER_LIST = ?, owner = ? where id = ?", 0, owner,
 				id);

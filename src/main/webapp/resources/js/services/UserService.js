@@ -13,5 +13,10 @@ app.service('UserService', function($http, CommonService) {
 		var config = CommonService.getConfig();
 		return $http.post(baseUrlForUser + '/login', user, config);
 	};
+	
+	this.getNotifications = function(user) {
+		var config = CommonService.getConfig();
+		return $http.post(baseUrlForUser + '/notifications', user, config);
+	};
 });
 

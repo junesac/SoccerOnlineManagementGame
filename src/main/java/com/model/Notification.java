@@ -6,6 +6,15 @@ public class Notification {
 	private String previousOwner;
 	private String newOwner;
 	private boolean seen;
+	private String playerName;
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 
 	public long getId() {
 		return id;
@@ -42,7 +51,7 @@ public class Notification {
 	@Override
 	public String toString() {
 		return "Notification [id=" + id + ", previousOwner=" + previousOwner + ", newOwner=" + newOwner + ", seen="
-				+ seen + "]";
+				+ seen + ", playerName=" + playerName + "]";
 	}
 
 }
