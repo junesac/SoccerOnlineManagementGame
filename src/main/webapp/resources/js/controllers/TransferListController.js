@@ -70,11 +70,21 @@ app.controller('TransferListController', function($rootScope, CommonService,
 	
 	$scope.buyPlayer = function(id) {
 		PlayerService.buyPlayer(id).then(function(response) {
+			const player = $scope.players.filter((player) => player.id === id);
+			player[0].presentOnTransferList  = false;
+			CommonService.team.players.push(player[0]);
+			CommonService.team.teamBudget -= player[0].marketValue;
+			CommonService.team.teamValue += player[0].marketValue;
 			$scope.players = $scope.players.filter((player) => player.id != id);
 			$scope.filterData = $scope.players;
 		}, function(error) {
 			swal('Unable to Purchase player.');
 		});
+	}
+	
+	$scope.canBuyPlayer = function(id) {
+		const player = $scope.players.filter((player) => player.id === id);
+		return player.marketValue > CommonService.team.teamBudget;
 	}
 
 });

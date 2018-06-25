@@ -41,7 +41,7 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "from team t, player p where t.owner=p.owner and PRESENT_ON_TRANSFER_LIST = ? and lower(p.owner) != ? ";
 
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, 1, owner.toLowerCase());
-		return PlayerMapper(rows);
+		return playerMapper(rows);
 	}
 
 	@Override
@@ -51,10 +51,18 @@ public class PlayerDaoImpl implements PlayerDao {
 
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { owner });
 
-		return PlayerMapper(rows);
+		return playerMapper(rows);
 	}
 
-	private List<Player> PlayerMapper(List<Map<String, Object>> rows) {
+	public Player getPlayersBasedOnId(int id) {
+		String query = " select id, first_name, last_name, country, age, market_value, "
+				+ "present_on_transfer_list, player_type," + " owner from player where id = ?";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { id });
+
+		return playerMapper(rows).get(0);
+	}
+
+	private List<Player> playerMapper(List<Map<String, Object>> rows) {
 		List<Player> players = new ArrayList<>();
 		for (Map<String, Object> row : rows) {
 			Player player = new Player();
@@ -86,12 +94,35 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	}
 
+	private Long getMaxId(String columnName, String tableName) {
+		Long id = jdbcTemplate.queryForObject("select max(" + columnName + ") from " + tableName, Long.class);
+		if (id == null) {
+			id = 1l;
+		}
+
+		return id;
+	}
+
 	@Override
 	public void buyPlayer(int id) {
 
 		String owner = AppUtility.getOwner();
 
+		Player player = getPlayersBasedOnId(id);
+
+		// Let's send notification for the current owner
+		Long notificationId = getMaxId("id", "notifications");
+
+		jdbcTemplate.update("INSERT INTO notifications (id, previousOwner, newOwner, seen) VALUES (?, ?, ?, ?)",
+				notificationId + 1, player.getOwner(), owner, 0);
+
 		this.jdbcTemplate.update("update player set PRESENT_ON_TRANSFER_LIST = ?, owner = ? where id = ?", 0, owner,
 				id);
+
+		// We Assumed that one owner can buy only one team.
+		this.jdbcTemplate.update("update team set team_budget = team_budget- ? where owner = ?",
+				player.getMarketValue().intValue(), owner);
+
 	}
+
 }

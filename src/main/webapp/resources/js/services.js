@@ -26,6 +26,7 @@ app.service('CommonService', function($rootScope) {
 
 	this.countries = [];
 	this.playerTypes = [];
+	this.team = {};
 
 });
 

@@ -13,21 +13,12 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	
 	$scope.countries = CommonService.countries;
 	$scope.playerTypes = CommonService.playerTypes;
-	
-	$scope.loadTeam = function() {
-		TeamService.getTeam().then(function(response) {
-			$scope.team = response.data;
-			console.log(response.data);
-		}, function(error) {
-			swal('Unable to load Team details.');
-		});
-	}
-	$scope.loadTeam();
-	
+	$scope.team = CommonService.team;
 	
 	$scope.saveChanges = function(team) {
 		TeamService.saveChanges(team).then(function(response) {
-			$scope.team = response.data;
+			CommonService.team = response.data;
+			$scope.team = CommonService.team;
 			console.log(response.data);
 		}, function(error) {
 			swal('Unable to Save changes.');
@@ -49,7 +40,5 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		}, function(error) {
 		});
 	}
-	
-	
 	
 });

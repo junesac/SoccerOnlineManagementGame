@@ -21,6 +21,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	private DataSource dataSource;
 
 	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.jdbcAuthentication().dataSource(dataSource)
@@ -28,7 +31,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 						"select username, password, enabled from users1 " + "where lower(username)=lower(?)")
 				.authoritiesByUsernameQuery("select U.username, R.ROLENAME from users1 u, roles r, user_role ur "
 						+ "where u.userid =ur.userid and r.rid = ur.rid and lower(username) = lower(?)")
-				.passwordEncoder(new BCryptPasswordEncoder());
+				.passwordEncoder(bCryptPasswordEncoder);
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**", "/index.jsp");
+		web.ignoring().antMatchers("/resources/**", "/index.jsp", "/ws/user/createUser");
 	}
 
 }

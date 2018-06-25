@@ -1,20 +1,29 @@
 package com.dao.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.dao.UserDao;
 import com.exception.UserException;
+import com.helper.AppUtility;
 import com.helper.TeamUtility;
+import com.model.Notification;
 import com.model.Player;
 import com.model.Team;
 import com.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -27,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 		user.setUserId(id + 1);
 
 		jdbcTemplate.update("INSERT INTO users1 (userid, username, password, enabled) VALUES (?, ?, ?, ?)",
-				user.getUserId(), user.getUserName(), user.getPassword(), 1);
+				user.getUserId(), user.getUserName(), bCryptPasswordEncoder.encode(user.getPassword()), 1);
 
 		// Only user role will be given to any user
 		jdbcTemplate.update("INSERT INTO user_role (userid, rid) VALUES (?, ?)", user.getUserId(), 2);
@@ -68,10 +77,8 @@ public class UserDaoImpl implements UserDao {
 
 		Team team = TeamUtility.getTeam();
 
-		jdbcTemplate.update(
-				"INSERT INTO team (id, team_name, country, team_value, team_budget, owner) VALUES (?, ?, ?, ?, ?, ?)",
-				teamId + 1, team.getTeamName(), team.getCountry().toString(), team.getTeamValue().intValue(),
-				team.getTeamBudget().intValue(), owner);
+		jdbcTemplate.update("INSERT INTO team (id, team_name, country, team_budget, owner) VALUES (?, ?, ?,  ?, ?)",
+				teamId + 1, team.getTeamName(), team.getCountry().toString(), team.getTeamBudget().intValue(), owner);
 
 		List<Player> players = team.getPlayers();
 		for (Player player : players) {
@@ -87,6 +94,31 @@ public class UserDaoImpl implements UserDao {
 
 		}
 
+	}
+
+	@Override
+	public List<Notification> getNotifications() {
+
+		String owner = AppUtility.getOwner();
+
+		String query = "select ID, previousowner, NEWOWNER, SEEN from notifications where currentowner = ?";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { owner });
+
+		return notificationMapper(rows);
+
+	}
+
+	private List<Notification> notificationMapper(List<Map<String, Object>> rows) {
+		List<Notification> notifications = new ArrayList<>();
+		for (Map<String, Object> row : rows) {
+			Notification notification = new Notification();
+			notification.setId(((BigDecimal) row.get("id")).longValue());
+			notification.setPreviousOwner((String) row.get("previousowner"));
+			notification.setNewOwner((String) row.get("newOwner"));
+			notification.setSeen(((BigDecimal) row.get("seen")).intValue() == 1 ? true : false);
+			notifications.add(notification);
+		}
+		return notifications;
 	}
 
 }

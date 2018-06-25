@@ -26,8 +26,8 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public Team getTeam(String owner) {
 
-		String query = "select t.id as id,t.team_name as teamName, t.country as country, t.team_value as"
-				+ " teamValue, t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.owner = ?";
+		String query = "select t.id as id,t.team_name as teamName, t.country as country, "
+				+ "t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.owner = ?";
 
 		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner },
 				new BeanPropertyRowMapper<Team>(Team.class));

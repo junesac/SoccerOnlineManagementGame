@@ -36,6 +36,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
 	public void buyPlayer(int id) {
 		playerDao.buyPlayer(id);
 	}

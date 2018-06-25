@@ -2,7 +2,6 @@ create table team (
 	id number(15),
 	team_name varchar2(10 char),
 	country varchar2(255 char),
-	team_value number(15),
 	team_budget number(15),
 	owner varchar2(15 char)
 );

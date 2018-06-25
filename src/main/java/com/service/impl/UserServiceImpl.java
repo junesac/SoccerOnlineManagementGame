@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.UserDao;
 import com.helper.AppUtility;
+import com.model.Notification;
 import com.model.User;
 import com.service.UserService;
 
@@ -28,6 +30,11 @@ public class UserServiceImpl implements UserService {
 		Set<String> roles = AppUtility.getRoles();
 		user.setRoles(roles);
 		return user;
+	}
+
+	@Override
+	public List<Notification> getNotifications() {
+		return userDao.getNotifications();
 	}
 
 }
