@@ -3,7 +3,9 @@ var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'SoccerManagementApp.Home', 'SoccerManagementApp.Registration',
 		'SoccerManagementApp.Logout', 'SoccerManagementApp.Login',
 		'SoccerManagementApp.Team', 'SoccerManagementApp.TransferList',
-		'Services' ]);
+		'Services.CommonService', 'Services.PlayerService',
+		'Services.RoleService', 'Services.StaticService',
+		'Services.TeamService', 'Services.UserService' ]);
 
 app.directive('myHeader', function() {
 	return {

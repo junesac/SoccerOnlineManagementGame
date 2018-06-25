@@ -30,7 +30,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/notifications")
-	public List<Notification> notifications() {
+	public List<Notification> getNotifications() {
 		return userService.getNotifications();
 	}
 
