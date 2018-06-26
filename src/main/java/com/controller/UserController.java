@@ -1,6 +1,9 @@
 package com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,4 +29,18 @@ public class UserController {
 		return userService.login(user);
 	}
 
+	@RequestMapping(value = "/getAllUsers")
+	public List<User> getAllUsers() {
+		return userService.getAllUsers();
+	}
+
+	@RequestMapping(value = "/makeAdmin/{userId}", method = RequestMethod.PUT)
+	public void makeAdmin(@PathVariable("userId") Long userId) {
+		userService.makeAdmin(userId);
+	}
+
+	@RequestMapping(value = "/makeUser/{userId}", method = RequestMethod.PUT)
+	public void makeUser(@PathVariable("userId") Long userId) {
+		userService.makeUser(userId);
+	}
 }

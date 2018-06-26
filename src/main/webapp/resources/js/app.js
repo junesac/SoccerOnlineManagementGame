@@ -3,9 +3,11 @@ var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'SoccerManagementApp.Home', 'SoccerManagementApp.Registration',
 		'SoccerManagementApp.Logout', 'SoccerManagementApp.Login',
 		'SoccerManagementApp.Team', 'SoccerManagementApp.TransferList',
+		'SoccerManagementApp.ViewTeams', 'SoccerManagementApp.ViewUsers',
 		'Services.CommonService', 'Services.PlayerService',
 		'Services.RoleService', 'Services.StaticService',
-		'Services.TeamService', 'Services.UserService', 'Services.NotificationService' ]);
+		'Services.TeamService', 'Services.UserService',
+		'Services.NotificationService' ]);
 
 app.directive('myHeader', function() {
 	return {
@@ -21,15 +23,9 @@ app.config(function($routeProvider) {
 	}).when('/viewTransferList', {
 		templateUrl : 'resources/pages/viewTransferList.html',
 		controller : 'TransferListController'
-	}).when('/updateUserActivities/:userActivityId', {
-		templateUrl : 'resources/pages/userActivityUpdate.html',
-		controller : 'UserActivityUpdateCtrl'
 	}).when('/users', {
 		templateUrl : 'resources/pages/userInfo.html',
 		controller : 'UserInfoController'
-	}).when('/updateUserInfo/:userId', {
-		templateUrl : 'resources/pages/userInfoUpdate.html',
-		controller : 'UserUpdateControlller'
 	}).when('/home', {
 		templateUrl : 'resources/pages/homePage.html',
 		controller : 'HomeController'
@@ -42,6 +38,12 @@ app.config(function($routeProvider) {
 	}).when('/login', {
 		templateUrl : 'resources/pages/loginPage.html',
 		controller : 'LoginController'
+	}).when('/viewUsers', {
+		templateUrl : 'resources/pages/viewUsers.html',
+		controller : 'ViewUsersController'
+	}).when('/viewTeams', {
+		templateUrl : 'resources/pages/viewTeams.html',
+		controller : 'ViewTeamsController'
 	}).otherwise({
 		redirectTo : '/login'
 	});

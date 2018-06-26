@@ -29,13 +29,28 @@
 <script type="text/javascript"
 	src="resources/js/controllers/TransferListController.js"></script>
 
-<script type="text/javascript" src="resources/js/services/CommonService.js"></script>
-<script type="text/javascript" src="resources/js/services/PlayerService.js"></script>
-<script type="text/javascript" src="resources/js/services/RoleService.js"></script>
-<script type="text/javascript" src="resources/js/services/StaticService.js"></script>
-<script type="text/javascript" src="resources/js/services/TeamService.js"></script>
-<script type="text/javascript" src="resources/js/services/UserService.js"></script>
-<script type="text/javascript" src="resources/js/services/NotificationService.js"></script>
+<script type="text/javascript"
+	src="resources/js/controllers/TransferListController.js"></script>
+<script type="text/javascript"
+	src="resources/js/controllers/ViewUsersController.js"></script>
+<script type="text/javascript"
+	src="resources/js/controllers/ViewTeamsController.js"></script>
+
+
+<script type="text/javascript"
+	src="resources/js/services/CommonService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/PlayerService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/RoleService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/StaticService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/TeamService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/UserService.js"></script>
+<script type="text/javascript"
+	src="resources/js/services/NotificationService.js"></script>
 
 
 </head>

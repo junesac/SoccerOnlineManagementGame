@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,25 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		Set<String> roles = AppUtility.getRoles();
 		user.setRoles(roles);
+		user.setPassword("");
 		return user;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return userDao.getAllUsers();
+	}
+
+	@Override
+	@Transactional
+	public void makeAdmin(Long userId) {
+		userDao.makeAdmin(userId);
+	}
+
+	@Override
+	@Transactional
+	public void makeUser(Long userId) {
+		userDao.makeUser(userId);
 	}
 
 }

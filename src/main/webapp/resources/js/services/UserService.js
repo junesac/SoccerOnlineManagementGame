@@ -13,10 +13,19 @@ app.service('UserService', function($http, CommonService) {
 		var config = CommonService.getConfig();
 		return $http.post(baseUrlForUser + '/login', user, config);
 	};
-	
-	this.getNotifications = function(user) {
-		var config = CommonService.getConfig();
-		return $http.post(baseUrlForUser + '/notifications', user, config);
-	};
-});
 
+	this.getAllUsers = function() {
+		var config = CommonService.getConfig();
+		return $http.get(baseUrlForUser + '/getAllUsers', config);
+	}
+	
+	this.makeAdmin = function(userId) {
+		var config = CommonService.getConfig();
+		return $http.put(baseUrlForUser + '/makeAdmin/'+ userId, config);
+	}
+	
+	this.makeUser = function(userId) {
+		var config = CommonService.getConfig();
+		return $http.put(baseUrlForUser + '/makeUser/' + userId , config);
+	}
+});

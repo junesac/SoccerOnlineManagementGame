@@ -1,6 +1,11 @@
 package com.dao.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -89,6 +94,68 @@ public class UserDaoImpl implements UserDao {
 
 		}
 
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		String query = "select userid, username from users1";
+
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
+		List<User> users = userMapper(rows);
+
+		for (User user : users) {
+			Set<String> roles = getRoles(user.getUserId());
+			user.setRoles(roles);
+		}
+
+		return users;
+	}
+
+	private Set<String> getRoles(Long userId) {
+		String query = "select rolename from user_role ur, role r where ur.rid=r.rid and userid=?";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, userId);
+
+		Set<String> roles = new HashSet<>();
+		for (Map<String, Object> row : rows) {
+			roles.add((String) row.get("rolename"));
+		}
+
+		return roles;
+	}
+
+	private List<User> userMapper(List<Map<String, Object>> rows) {
+
+		List<User> users = new ArrayList<>();
+		for (Map<String, Object> row : rows) {
+			User user = new User();
+			user.setUserId(((BigDecimal) row.get("userid")).longValue());
+			user.setUserName((String) row.get("username"));
+			users.add(user);
+		}
+		return users;
+
+	}
+
+	@Override
+	public void makeAdmin(Long userId) {
+
+		Set<String> roles = getRoles(userId);
+
+		if (roles.contains("Admin")) {
+			return;
+		}
+		jdbcTemplate.update("INSERT INTO user_role (userid, rid) VALUES (?, ?)", userId, 1);
+	}
+
+	@Override
+	public void makeUser(Long userId) {
+
+		Set<String> roles = getRoles(userId);
+
+		if (!roles.contains("Admin")) {
+			return;
+		}
+		jdbcTemplate.update("delete from user_role where userid = ?  and rid = ?", userId, 2);
 	}
 
 }
