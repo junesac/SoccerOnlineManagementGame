@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,18 +34,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
 	}
 
 	@Override
 	@Transactional
+	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public void makeAdmin(Long userId) {
 		userDao.makeAdmin(userId);
 	}
 
 	@Override
 	@Transactional
+	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public void makeUser(Long userId) {
 		userDao.makeUser(userId);
 	}
