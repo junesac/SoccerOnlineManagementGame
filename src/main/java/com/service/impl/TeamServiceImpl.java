@@ -38,7 +38,14 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public List<Team> getAllTeams() {
-		return teamDao.getAllTeams();
+		List<Team> teams = teamDao.getAllTeams();
+
+		for (Team team : teams) {
+			List<Player> players = playerDao.getPlayersBasedOnOwner(team.getOwner());
+			team.setPlayers(players);
+		}
+
+		return teams;
 	}
 
 	@Override
