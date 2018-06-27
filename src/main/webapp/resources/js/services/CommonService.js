@@ -24,6 +24,25 @@ app.service('CommonService', function($rootScope) {
 	this.setAllTeams = function(teams) {
 		this.allTeams = teams;
 	}
+	
+	this.updateAllTeams = function(team) {
+		if(this.allTeams.length > 0) {
+			this.allTeams.forEach( t => {
+				if(t.id === team.id) {
+					for(var i in team) {
+						t[i] = team[i];
+					}
+				}
+				
+				if(t.id === this.team.id) {
+					for(var i in team) {
+						this.team[i] = team[i];
+					}
+				}
+			});
+		}
+	}
+	
 
 	this.setTeam = function(team) {
 		this.team = team;

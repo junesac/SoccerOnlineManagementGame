@@ -4,10 +4,11 @@ var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'SoccerManagementApp.Logout', 'SoccerManagementApp.Login',
 		'SoccerManagementApp.Team', 'SoccerManagementApp.TransferList',
 		'SoccerManagementApp.ViewTeams', 'SoccerManagementApp.ViewUsers',
-		'SoccerManagementApp.EditTeam', 'Services.CommonService',
-		'Services.PlayerService', 'Services.RoleService',
-		'Services.StaticService', 'Services.TeamService',
-		'Services.UserService', 'Services.NotificationService' ]);
+		'SoccerManagementApp.EditTeam', 'SoccerManagementApp.CreatePlayer',
+		'Services.CommonService', 'Services.PlayerService',
+		'Services.RoleService', 'Services.StaticService',
+		'Services.TeamService', 'Services.UserService',
+		'Services.NotificationService' ]);
 
 app.directive('userHeader', function() {
 	return {
@@ -54,6 +55,9 @@ app.config(function($routeProvider) {
 	}).when('/editTeam/:teamId', {
 		templateUrl : 'resources/pages/editTeam.html',
 		controller : 'EditTeamController'
+	}).when('/createPlayer', {
+		templateUrl : 'resources/pages/createPlayer.html',
+		controller : 'CreatePlayerController'
 	}).otherwise({
 		redirectTo : '/login'
 	});

@@ -17,7 +17,7 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 	
 	$scope.saveChanges = function(team) {
 		TeamService.saveChanges(team).then(function(response) {
-			console.log('Changes saved.');
+			swal('Changes saved.');
 		}, function(error) {
 			swal('Unable to Save changes.');
 		});

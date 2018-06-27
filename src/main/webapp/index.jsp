@@ -28,7 +28,6 @@
 	src="resources/js/controllers/TeamController.js"></script>
 <script type="text/javascript"
 	src="resources/js/controllers/TransferListController.js"></script>
-
 <script type="text/javascript"
 	src="resources/js/controllers/TransferListController.js"></script>
 <script type="text/javascript"
@@ -37,9 +36,12 @@
 	src="resources/js/controllers/ViewTeamsController.js"></script>
 <script type="text/javascript"
 	src="resources/js/controllers/EditTeamController.js"></script>
+<script type="text/javascript"
+	src="resources/js/controllers/CreatePlayerController.js"></script>
 
 
 
+<!-- Added Services -->
 
 <script type="text/javascript"
 	src="resources/js/services/CommonService.js"></script>

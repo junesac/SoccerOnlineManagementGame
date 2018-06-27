@@ -34,6 +34,7 @@ app.controller('EditTeamController', function($scope, $rootScope, $location,
 		TeamService.saveChanges(team).then(function(response) {
 			swal('Changes saved.');
 			$scope.updateScore();
+			CommonService.updateAllTeams($scope.team);
 		}, function(error) {
 			swal('Unable to Save changes.');
 		});

@@ -65,5 +65,18 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			swal('Unable to mark notification unread.');
 		});
 	}
+
+	$scope.getAllTeams = function() {
+		TeamService.getAllTeams().then(function(response) {
+			CommonService.setAllTeams(response.data); 
+			
+		}, function(error) {
+			swal('Unable to load all Teams.');
+		});
+	}
+	if($scope.admin) {
+		$scope.getAllTeams();
+	}
+
 	
 });

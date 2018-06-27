@@ -1,0 +1,106 @@
+<div class="panel-heading">
+
+	<user-header ng-if="!admin"></user-header>
+	<admin-header ng-if="admin"></admin-header>
+	<h3 class="panel-title">{{header}}</h3>
+
+	<form name="myForm" novalidate>
+		<div class="panel-body form-horizontal" role="form">
+			<div class="form-group">
+				<label for="firstName" class="col-sm-2 control-label">First
+					Name</label>
+				<div class="col-xs-3">
+					<input type="text" required name="firstName"
+						ng-model="player.firstName" class="form-control" />
+				</div>
+				<span
+					ng-show="myForm.firstName.$touched && myForm.firstName.$error.required">First
+					Name is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="lastName" class="col-sm-2 control-label">Last
+					Name</label>
+				<div class="col-xs-3">
+					<input type="text" required name="lastName"
+						ng-model="player.lastName" class="form-control">
+				</div>
+				<span
+					ng-show="myForm.lastName.$touched && myForm.lastName.$error.required">Last
+					Name is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="country" class="col-sm-2 control-label">Country</label>
+				<div class="col-xs-3">
+					<select ng-model="player.country" required name="country"
+						ng-options="key as value for (key , value) in countries"></select>
+				</div>
+				<span
+					ng-show="myForm.country.$touched && myForm.country.$error.required">Country
+					is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="age" class="col-sm-2 control-label">Age</label>
+				<div class="col-xs-3">
+					<input type="number" name="age" ng-model="player.age" required
+						class="form-control">
+				</div>
+				<span ng-show="myForm.age.$touched && myForm.age.$error.required">Age
+					is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="marketValue" class="col-sm-2 control-label">Market
+					Value</label>
+				<div class="col-xs-3">
+					<input type="number" name="marketValue"
+						ng-model="player.marketValue" required class="form-control">
+				</div>
+				<span
+					ng-show="myForm.marketValue.$touched && myForm.marketValue.$error.required">Market
+					Value is required.</span>
+			</div>
+
+			<div class="form-group">
+				<label for="playerType" class="col-sm-2 control-label">Player
+					Type</label>
+				<div class="col-xs-3">
+					<select ng-model="player.playerType" required name="playerType"
+						ng-options="key as value for (key , value) in playerTypes"></select>
+				</div>
+				<span
+					ng-show="myForm.playerType.$touched && myForm.PlayerType.$error.required">Player
+					Type is required.</span>
+			</div>
+
+			<div class="form-group">
+				<label for="marketValue" class="col-sm-2 control-label">Should
+					move in market</label>
+				<div class="col-xs-3">
+					<input type="checkbox" ng-model="player.PRESENT_ON_TRANSFER_LIST"
+						required>
+				</div>
+			</div>
+
+			<!--  ng-show="!player.PRESENT_ON_TRANSFER_LIST"> -->
+			<div class="form-group">
+				<label for="owner" class="col-sm-2 control-label">Owner</label>
+				<div class="col-xs-3">
+					<select ng-model="player.owner" required
+						ng-options="team.owner as team.owner for team in allTeams"></select>
+				</div>
+				<span
+					ng-show="myForm.owner.$touched && myForm.owner.$error.required">Owner
+					is required.</span>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default"
+						ng-disabled="(myForm.firstName.$dirty && myForm.firstName.$invalid) || (myForm.lastName.$dirty && myForm.lastName.$invalid) || (myForm.country.$dirty && myForm.country.$invalid)|| (myForm.age.$dirty && myForm.age.$invalid)|| (myForm.marketValue.$dirty && myForm.marketValue.$invalid)"
+						ng-click="createPlayer()">Create Player</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
