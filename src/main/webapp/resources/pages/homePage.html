@@ -1,5 +1,6 @@
 <div class="panel panel-info">
-	<my-header></my-header>
+	<user-header ng-if="!admin"></user-header>
+	<admin-header ng-if="admin"></admin-header>
 
 	<div>Notifications :</div>
 
@@ -8,10 +9,12 @@
 			<tr ng-repeat="notification in notifications">
 				<td>{{notification.newOwner}} bought
 					{{notification.playerName}}</td>
-				<td><button type="button" class="btn btn-success" ng-hide="notification.seen"
-						ng-click="markItRead(notification.id)">Mark it read</button></td>
-						
-				<td><button type="button" class="btn btn-danger" ng-hide="!notification.seen"
+				<td><button type="button" class="btn btn-success"
+						ng-hide="notification.seen" ng-click="markItRead(notification.id)">Mark
+						it read</button></td>
+
+				<td><button type="button" class="btn btn-danger"
+						ng-hide="!notification.seen"
 						ng-click="markItUnRead(notification.id)">Mark it unread</button></td>
 			</tr>
 		</table>

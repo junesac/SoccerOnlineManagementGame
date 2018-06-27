@@ -9,10 +9,17 @@ var app = angular.module('SoccerManagementApp', [ 'ngRoute',
 		'Services.TeamService', 'Services.UserService',
 		'Services.NotificationService' ]);
 
-app.directive('myHeader', function() {
+app.directive('userHeader', function() {
 	return {
 		restrict : 'E',
-		templateUrl : 'resources/pages/header.html'
+		templateUrl : 'resources/pages/userHeader.html'
+	};
+});
+
+app.directive('adminHeader', function() {
+	return {
+		restrict : 'E',
+		templateUrl : 'resources/pages/adminHeader.html'
 	};
 });
 

@@ -8,6 +8,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
+	$scope.admin = $rootScope.admin;
 
 	$scope.getAllCountries = function() {
 		StaticService.getAllCountries().then(function(response) {

@@ -1,15 +1,19 @@
 <div class="panel panel-info">
-	<my-header></my-header>
+	<user-header ng-if="!admin"></user-header>
+	<admin-header ng-if="admin"></admin-header>
+
 
 	<div>
 		<table class="table">
 			<tr ng-repeat="u in users">
 				<td>{{u.userName}}</td>
-				<td><button type="button" class="btn btn-success" ng-hide="checkIfAdmin(u.roles)"
-						ng-click="makeAdmin(u.userId)">Grant him admin role</button></td>
-						
-				<td><button type="button" class="btn btn-danger" ng-hide="!checkIfAdmin(u.roles)"
-						ng-click="makeUser(u.userId)">Revoke Admin role</button></td>
+				<td><button type="button" class="btn btn-success"
+						ng-hide="checkIfAdmin(u.roles)" ng-click="makeAdmin(u.userId)">Grant
+						him admin role</button></td>
+
+				<td><button type="button" class="btn btn-danger"
+						ng-hide="!checkIfAdmin(u.roles)" ng-click="makeUser(u.userId)">Revoke
+						Admin role</button></td>
 			</tr>
 		</table>
 	</div>

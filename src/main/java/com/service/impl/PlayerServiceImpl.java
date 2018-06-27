@@ -18,25 +18,26 @@ public class PlayerServiceImpl implements PlayerService {
 	private PlayerDao playerDao;
 
 	@Override
-	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public void addToTransferList(int id) {
 		playerDao.addToTransferList(id);
 	}
 
 	@Override
-	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public void removeFromTransferList(int id) {
 		playerDao.removeFromTransferList(id);
 	}
 
 	@Override
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public List<Player> getTransferList() {
 		return playerDao.getTransferList();
 	}
 
 	@Override
 	@Transactional
-	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public void buyPlayer(int id) {
 		playerDao.buyPlayer(id);
 	}

@@ -1,5 +1,7 @@
 <div class="panel panel-info">
-	<my-header></my-header>
+	<user-header ng-if="!admin"></user-header>
+	<admin-header ng-if="admin"></admin-header>
+
 
 	<div>Notifications :</div>
 

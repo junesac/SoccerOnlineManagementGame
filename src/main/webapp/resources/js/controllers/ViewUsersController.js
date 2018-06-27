@@ -4,11 +4,14 @@ var app = angular.module('SoccerManagementApp.ViewUsers', []);
 
 app.controller('ViewUsersController', function($scope, $rootScope, $location,
 		UserService, CommonService) {
-	$scope.header = 'User List : ';
+	
+	
+	
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
-
+	$scope.header = 'User List : ';
+	$scope.admin = $rootScope.admin;
 	$scope.getAllUsers = function() {
 		UserService.getAllUsers().then(function(response) {
 			CommonService.users = response.data;

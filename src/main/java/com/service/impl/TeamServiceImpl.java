@@ -20,7 +20,7 @@ public class TeamServiceImpl implements TeamService {
 	private TeamDao teamDao;
 
 	@Override
-	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public Team getTeam() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String owner = auth.getName();
@@ -35,7 +35,7 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	@Transactional
-	@PreAuthorize("@accessManager.hasRole({ 'USER' })")
+	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public Team saveTeam(Team team) {
 		return teamDao.saveTeam(team);
 	}
