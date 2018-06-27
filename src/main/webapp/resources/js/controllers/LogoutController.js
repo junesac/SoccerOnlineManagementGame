@@ -9,6 +9,10 @@ app.controller('LogoutController', function($rootScope, CommonService, $scope,
 		CommonService.auth = '';
 		$rootScope.admin = false;
 		$rootScope.user = false;
+		CommonService.countries = [];
+		CommonService.playerTypes = [];
+		CommonService.team = {};
+		CommonService.users = [];
 		$location.path('/login');
 	}
 	$scope.logout();

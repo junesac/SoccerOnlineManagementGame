@@ -12,4 +12,6 @@ public interface TeamDao {
 
 	void saveTeam(Team team);
 
+	Team getTeamById(int id);
+
 }

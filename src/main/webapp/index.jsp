@@ -35,6 +35,10 @@
 	src="resources/js/controllers/ViewUsersController.js"></script>
 <script type="text/javascript"
 	src="resources/js/controllers/ViewTeamsController.js"></script>
+<script type="text/javascript"
+	src="resources/js/controllers/EditTeamController.js"></script>
+
+
 
 
 <script type="text/javascript"

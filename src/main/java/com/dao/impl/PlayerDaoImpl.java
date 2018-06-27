@@ -62,11 +62,12 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public void savePlayers(List<Player> players) {
 
-		String query = "update player set first_name = ?, last_name = ?, country = ? where id = ?";
+		String query = "update player set first_name = ?, last_name = ?, country = ?, market_value = ?, "
+				+ "player_type = ?   where id = ?";
 
 		for (Player player : players) {
 			jdbcTemplate.update(query, player.getFirstName(), player.getLastName(), player.getCountry().toString(),
-					player.getId());
+					player.getMarketValue().intValue(), player.getPlayerType().toString(), player.getId());
 		}
 
 	}

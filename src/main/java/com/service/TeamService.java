@@ -12,4 +12,6 @@ public interface TeamService {
 
 	void saveTeam(Team team);
 
+	Team getTeamById(int id);
+
 }

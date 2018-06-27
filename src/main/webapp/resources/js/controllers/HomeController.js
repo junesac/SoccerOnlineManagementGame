@@ -32,10 +32,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 
 	$scope.loadTeam = function() {
 		TeamService.getTeam().then(function(response) {
-			CommonService.team = response.data;
-			var teamValue = 0;
-			CommonService.team.players.forEach((p) => { teamValue += p.marketValue; });
-			CommonService.team.teamValue = teamValue;
+			CommonService.setTeam(response.data);
 		}, function(error) {
 			swal('Unable to load Team details.');
 		});

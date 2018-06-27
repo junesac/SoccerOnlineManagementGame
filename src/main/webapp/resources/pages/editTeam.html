@@ -20,12 +20,13 @@
 					<th>Team Budget</th>
 				</tr>
 				<tr>
-					<td><input type="text" name="userName"
+					<td><input type="text" name="teamName"
 						ng-model="team.teamName" class="form-control" /></td>
 					<td><select ng-model="team.country"
 						ng-options="key as value for (key , value) in countries"></select></td>
 					<td>{{team.teamValue}}</td>
-					<td>{{team.teamBudget}}</td>
+					<td><input type="text" name="teamBudget"
+						ng-model="team.teamBudget" class="form-control" /></td>
 				</tr>
 			</table>
 		</div>
@@ -49,17 +50,10 @@
 					<td><select ng-model="player.country"
 						ng-options="key as value for (key , value) in countries"></select></td>
 					<td>{{player.age}}</td>
-					<td>{{player.marketValue}}</td>
-					<td>{{playerTypes[player.playerType]}}</td>
-					<td>
-						<button type="button" ng-hide="player.presentOnTransferList"
-							class="btn btn-success" ng-click="addToTransferList(player.id)">Add
-							in Transfer List</button>
-						<button type="button" ng-show="player.presentOnTransferList"
-							class="btn btn-danger"
-							ng-click="removeFromTransferList(player.id)">Remove from
-							Transfer List</button>
-					</td>
+					<td><input type="text" name="lastName"
+						ng-model="player.marketValue" class="form-control" /></td>
+					<td><select ng-model="player.playerType"
+						ng-options="key as value for (key , value) in playerTypes"></select></td>
 				</tr>
 			</table>
 		</div>

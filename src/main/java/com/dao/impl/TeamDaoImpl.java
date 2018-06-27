@@ -34,8 +34,17 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override
 	public void saveTeam(Team team) {
-		String query = "update team set team_name = ?, country = ? where id = ?";
-		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getId());
+		String query = "update team set team_name = ?, country = ?, team_budget = ?  where id = ?";
+		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getTeamBudget().intValue(),
+				team.getId());
+	}
+
+	@Override
+	public Team getTeamById(int id) {
+		String query = "select t.id as id,t.team_name as teamName, t.country as country, "
+				+ "t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.id = ?";
+		Team team = jdbcTemplate.queryForObject(query, new Object[] { id }, new TeamMapper());
+		return team;
 	}
 
 }

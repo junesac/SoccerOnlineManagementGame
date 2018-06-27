@@ -15,4 +15,14 @@ app.service('TeamService', function($http, CommonService) {
 		return $http.put(baseUrlForTeam + '/saveTeam', team, config);
 	}
 
+	this.getAllTeams = function() {
+		var config = CommonService.getConfig();
+		return $http.get(baseUrlForTeam + '/getAllTeams', config);
+	}
+
+	this.getTeamById = function(teamId) {
+		var config = CommonService.getConfig();
+		return $http.get(baseUrlForTeam + '/getTeamById/' + teamId, config);
+	}
+
 });

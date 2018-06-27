@@ -3,18 +3,21 @@
 	<admin-header ng-if="admin"></admin-header>
 
 
-	<div>Notifications :</div>
+	<div>Teams :</div>
 
 	<div>
 		<table class="table">
-			<tr ng-repeat="notification in notifications">
-				<td>{{notification.newOwner}} bought
-					{{notification.playerName}}</td>
-				<td><button type="button" class="btn btn-success" ng-hide="notification.seen"
-						ng-click="markItRead(notification.id)">Mark it read</button></td>
-						
-				<td><button type="button" class="btn btn-danger" ng-hide="!notification.seen"
-						ng-click="markItUnRead(notification.id)">Mark it unread</button></td>
+			<tr>
+				<th>Team Name</th>
+				<th>Team Country</th>
+				<th>Team Budget</th>
+			</tr>
+			<tr ng-repeat="team in allTeams">
+				<td>{{team.teamName}}</td>
+				<td><select ng-model="team.country"
+					ng-options="key as value for (key , value) in countries" disabled></select></td>
+				<td>{{team.teamBudget}}</td>
+				<td><a href="#/editTeam/{{team.id}}">Edit Team</a></td>
 			</tr>
 		</table>
 	</div>

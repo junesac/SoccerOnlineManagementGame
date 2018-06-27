@@ -3,6 +3,7 @@ package com.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,11 @@ public class TeamController {
 	@RequestMapping("/getTeam")
 	public Team getTeam() {
 		return teamService.getTeam();
+	}
+
+	@RequestMapping("/getTeamById/{id}")
+	public Team getTeamById(@PathVariable("id") int id) {
+		return teamService.getTeamById(id);
 	}
 
 	@RequestMapping("/getAllTeams")

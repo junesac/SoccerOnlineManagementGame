@@ -40,10 +40,11 @@ public class TeamServiceImpl implements TeamService {
 	public List<Team> getAllTeams() {
 		List<Team> teams = teamDao.getAllTeams();
 
-		for (Team team : teams) {
-			List<Player> players = playerDao.getPlayersBasedOnOwner(team.getOwner());
-			team.setPlayers(players);
-		}
+		// for (Team team : teams) {
+		// List<Player> players =
+		// playerDao.getPlayersBasedOnOwner(team.getOwner());
+		// team.setPlayers(players);
+		// }
 
 		return teams;
 	}
@@ -54,6 +55,15 @@ public class TeamServiceImpl implements TeamService {
 	public void saveTeam(Team team) {
 		teamDao.saveTeam(team);
 		playerDao.savePlayers(team.getPlayers());
+	}
+
+	@Override
+	public Team getTeamById(int id) {
+
+		Team team = teamDao.getTeamById(id);
+		List<Player> players = playerDao.getPlayersBasedOnOwner(team.getOwner());
+		team.setPlayers(players);
+		return team;
 	}
 
 }
