@@ -16,5 +16,7 @@ public interface PlayerDao {
 
 	void savePlayers(List<Player> players);
 
-	void buyPlayer(int id);
+	void buyPlayer(Player player);
+
+	Player getPlayersBasedOnId(int id);
 }

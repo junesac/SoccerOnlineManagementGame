@@ -9,7 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dao.PlayerDao;
 import com.dao.TeamDao;
+import com.model.Player;
 import com.model.Team;
 import com.service.TeamService;
 
@@ -19,12 +21,18 @@ public class TeamServiceImpl implements TeamService {
 	@Autowired
 	private TeamDao teamDao;
 
+	@Autowired
+	PlayerDao playerDao;
+
 	@Override
 	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public Team getTeam() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String owner = auth.getName();
-		return teamDao.getTeam(owner);
+		List<Player> players = playerDao.getPlayersBasedOnOwner(owner);
+		Team team = teamDao.getTeam(owner);
+		team.setPlayers(players);
+		return team;
 	}
 
 	@Override
@@ -37,7 +45,9 @@ public class TeamServiceImpl implements TeamService {
 	@Transactional
 	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public Team saveTeam(Team team) {
-		return teamDao.saveTeam(team);
+		Team result = teamDao.saveTeam(team);
+		playerDao.savePlayers(result.getPlayers());
+		return result;
 	}
 
 }

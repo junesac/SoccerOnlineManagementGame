@@ -8,10 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.dao.PlayerDao;
 import com.dao.TeamDao;
 import com.helper.TeamUtility;
-import com.model.Player;
 import com.model.Team;
 
 @Repository
@@ -19,9 +17,6 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	PlayerDao playerDao;
 
 	@Override
 	public Team getTeam(String owner) {
@@ -31,9 +26,6 @@ public class TeamDaoImpl implements TeamDao {
 
 		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner },
 				new BeanPropertyRowMapper<Team>(Team.class));
-
-		List<Player> players = playerDao.getPlayersBasedOnOwner(owner);
-		team.setPlayers(players);
 
 		return team;
 
@@ -49,8 +41,6 @@ public class TeamDaoImpl implements TeamDao {
 
 		String query = "update team set team_name = ?, country = ? where id = ?";
 		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getId());
-
-		playerDao.savePlayers(team.getPlayers());
 
 		return team;
 	}

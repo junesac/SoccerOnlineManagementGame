@@ -54,6 +54,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		return playerMapper(rows);
 	}
 
+	@Override
 	public Player getPlayersBasedOnId(int id) {
 		String query = " select id, first_name, last_name, country, age, market_value, "
 				+ "present_on_transfer_list, player_type," + " owner from player where id = ?";
@@ -104,11 +105,9 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public void buyPlayer(int id) {
+	public void buyPlayer(Player player) {
 
 		String owner = AppUtility.getOwner();
-
-		Player player = getPlayersBasedOnId(id);
 
 		// Let's send notification for the current owner
 		Long notificationId = getMaxId("id", "notifications");
@@ -118,7 +117,7 @@ public class PlayerDaoImpl implements PlayerDao {
 				notificationId + 1, player.getOwner(), owner, 0, player.getFirstName() + " " + player.getLastName());
 
 		this.jdbcTemplate.update("update player set PRESENT_ON_TRANSFER_LIST = ?, owner = ? where id = ?", 0, owner,
-				id);
+				player.getId());
 
 		// We Assumed that one owner can buy only one team.
 		this.jdbcTemplate.update("update team set team_budget = team_budget- ? where owner = ?",

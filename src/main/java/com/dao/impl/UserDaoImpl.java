@@ -155,7 +155,7 @@ public class UserDaoImpl implements UserDao {
 		if (!roles.contains("Admin")) {
 			return;
 		}
-		jdbcTemplate.update("delete from user_role where userid = ?  and rid = ?", userId, 2);
+		jdbcTemplate.update("delete from user_role where userid = ?  and rid = ?", userId, 1);
 	}
 
 }

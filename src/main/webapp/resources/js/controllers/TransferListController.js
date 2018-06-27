@@ -69,8 +69,13 @@ app.controller('TransferListController', function($rootScope, CommonService,
 	$scope.loadTransferList();
 	
 	$scope.buyPlayer = function(id) {
+		const player = $scope.players.filter((player) => player.id === id);
+		if(CommonService.team.teamBudget < player[0].marketValue) {
+			console.log("can't buy player. check your budget");
+			swal("can't buy player. check your budget");
+			return;
+		}
 		PlayerService.buyPlayer(id).then(function(response) {
-			const player = $scope.players.filter((player) => player.id === id);
 			player[0].presentOnTransferList  = false;
 			CommonService.team.players.push(player[0]);
 			CommonService.team.teamBudget -= player[0].marketValue;
