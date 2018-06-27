@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.PlayerDao;
 import com.dao.TeamDao;
+import com.helper.AppUtility;
 import com.model.Player;
 import com.model.Team;
 import com.service.PlayerService;
@@ -45,8 +46,10 @@ public class PlayerServiceImpl implements PlayerService {
 	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
 	public void buyPlayer(int id) {
 
+		String owner = AppUtility.getOwner();
+
 		Player player = playerDao.getPlayersBasedOnId(id);
-		Team team = teamDao.getTeam(player.getOwner());
+		Team team = teamDao.getTeam(owner);
 
 		if (team.getTeamBudget().intValue() < player.getMarketValue().intValue()) {
 			throw new RuntimeException("Team budget should be more than player value");

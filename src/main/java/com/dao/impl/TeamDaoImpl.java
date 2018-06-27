@@ -3,7 +3,6 @@ package com.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,10 +21,7 @@ public class TeamDaoImpl implements TeamDao {
 
 		String query = "select t.id as id,t.team_name as teamName, t.country as country, "
 				+ "t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.owner = ?";
-
-		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner },
-				new BeanPropertyRowMapper<Team>(Team.class));
-
+		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner }, new TeamMapper());
 		return team;
 
 	}

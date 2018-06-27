@@ -1,9 +1,6 @@
 package com.dao.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,9 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.dao.PlayerDao;
 import com.helper.AppUtility;
-import com.model.Country;
+import com.mapper.PlayerMapper;
 import com.model.Player;
-import com.model.PlayerType;
 
 @Repository
 public class PlayerDaoImpl implements PlayerDao {
@@ -40,47 +36,27 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
 				+ "from team t, player p where t.owner=p.owner and PRESENT_ON_TRANSFER_LIST = ? and lower(p.owner) != ? ";
 
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, 1, owner.toLowerCase());
-		return playerMapper(rows);
+		return jdbcTemplate.query(query, new Object[] { 1, owner.toLowerCase() }, new PlayerMapper());
 	}
 
 	@Override
 	public List<Player> getPlayersBasedOnOwner(String owner) {
-		String query = " select id, first_name, last_name, country, age, market_value, "
-				+ "present_on_transfer_list, player_type," + " owner from player where owner = ?";
+		String query = "select p.id, first_name, last_name, p.country, age, market_value,"
+				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
+				+ "from team t, player p where t.owner=p.owner and lower(p.owner) = ? ";
 
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { owner });
-
-		return playerMapper(rows);
+		return jdbcTemplate.query(query, new Object[] { owner.toLowerCase() }, new PlayerMapper());
 	}
 
 	@Override
 	public Player getPlayersBasedOnId(int id) {
-		String query = " select id, first_name, last_name, country, age, market_value, "
-				+ "present_on_transfer_list, player_type," + " owner from player where id = ?";
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { id });
 
-		return playerMapper(rows).get(0);
-	}
+		String query = "select p.id, first_name, last_name, p.country, age, market_value,"
+				+ " present_on_transfer_list, player_type, p.owner, t.team_name as teamname "
+				+ "from team t, player p where t.owner=p.owner and p.id = ? ";
 
-	private List<Player> playerMapper(List<Map<String, Object>> rows) {
-		List<Player> players = new ArrayList<>();
-		for (Map<String, Object> row : rows) {
-			Player player = new Player();
-			player.setId(((BigDecimal) row.get("id")).longValue());
-			player.setFirstName((String) row.get("first_name"));
-			player.setLastName((String) row.get("last_name"));
-			player.setCountry(Country.valueOf((String) row.get("country")));
-			player.setAge(((BigDecimal) row.get("AGE")).intValue());
-			player.setMarketValue(((BigDecimal) row.get("market_value")).toBigInteger());
-			player.setPresentOnTransferList(
-					((BigDecimal) row.get("present_on_transfer_list")).intValue() > 0 ? true : false);
-			player.setPlayerType(PlayerType.valueOf((String) row.get("player_type")));
-			player.setOwner((String) row.get("owner"));
-			player.setTeamName((String) row.get("teamname"));
-			players.add(player);
-		}
-		return players;
+		return jdbcTemplate.query(query, new Object[] { id }, new PlayerMapper()).get(0);
+
 	}
 
 	@Override

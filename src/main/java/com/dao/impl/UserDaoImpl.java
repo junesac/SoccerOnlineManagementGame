@@ -1,7 +1,5 @@
 package com.dao.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.dao.UserDao;
 import com.exception.UserException;
 import com.helper.TeamUtility;
+import com.mapper.UserMapper;
 import com.model.Player;
 import com.model.Team;
 import com.model.User;
@@ -100,8 +99,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getAllUsers() {
 		String query = "select userid, username from users1";
 
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
-		List<User> users = userMapper(rows);
+		List<User> users = jdbcTemplate.query(query, new UserMapper());
 
 		for (User user : users) {
 			Set<String> roles = getRoles(user.getUserId());
@@ -123,38 +121,13 @@ public class UserDaoImpl implements UserDao {
 		return roles;
 	}
 
-	private List<User> userMapper(List<Map<String, Object>> rows) {
-
-		List<User> users = new ArrayList<>();
-		for (Map<String, Object> row : rows) {
-			User user = new User();
-			user.setUserId(((BigDecimal) row.get("userid")).longValue());
-			user.setUserName((String) row.get("username"));
-			users.add(user);
-		}
-		return users;
-
-	}
-
 	@Override
 	public void makeAdmin(Long userId) {
-
-		Set<String> roles = getRoles(userId);
-
-		if (roles.contains("Admin")) {
-			return;
-		}
 		jdbcTemplate.update("INSERT INTO user_role (userid, rid) VALUES (?, ?)", userId, 1);
 	}
 
 	@Override
 	public void makeUser(Long userId) {
-
-		Set<String> roles = getRoles(userId);
-
-		if (!roles.contains("Admin")) {
-			return;
-		}
 		jdbcTemplate.update("delete from user_role where userid = ?  and rid = ?", userId, 1);
 	}
 
