@@ -51,10 +51,9 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	@Transactional
 	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
-	public Team saveTeam(Team team) {
-		Team result = teamDao.saveTeam(team);
-		playerDao.savePlayers(result.getPlayers());
-		return result;
+	public void saveTeam(Team team) {
+		teamDao.saveTeam(team);
+		playerDao.savePlayers(team.getPlayers());
 	}
 
 }

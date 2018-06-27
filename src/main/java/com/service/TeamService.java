@@ -10,6 +10,6 @@ public interface TeamService {
 
 	List<Team> getAllTeams();
 
-	Team saveTeam(Team team);
+	void saveTeam(Team team);
 
 }

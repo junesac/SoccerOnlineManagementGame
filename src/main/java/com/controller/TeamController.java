@@ -29,8 +29,8 @@ public class TeamController {
 	}
 
 	@RequestMapping(value = "/saveTeam", method = RequestMethod.PUT)
-	public Team saveTeam(@RequestBody Team team) {
-		return teamService.saveTeam(team);
+	public void saveTeam(@RequestBody Team team) {
+		teamService.saveTeam(team);
 	}
 
 }

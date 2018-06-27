@@ -33,10 +33,9 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public Team saveTeam(Team team) {
+	public void saveTeam(Team team) {
 		String query = "update team set team_name = ?, country = ? where id = ?";
 		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getId());
-		return team;
 	}
 
 }
