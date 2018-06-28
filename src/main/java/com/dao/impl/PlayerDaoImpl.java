@@ -102,4 +102,19 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	}
 
+	@Override
+	public Player createPlayer(Player player) {
+
+		Long playerId = getMaxId("id", "player");
+
+		jdbcTemplate.update(
+				"INSERT INTO player (id, first_name, last_name, country, age, market_value, "
+						+ "present_on_transfer_list, player_type, owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+				playerId++, player.getFirstName(), player.getLastName(), player.getCountry().toString(),
+				player.getAge(), player.getMarketValue().intValue(), player.isPresentOnTransferList() ? 1 : 0,
+				player.getPlayerType().toString(), player.getOwner());
+
+		return player;
+	}
+
 }

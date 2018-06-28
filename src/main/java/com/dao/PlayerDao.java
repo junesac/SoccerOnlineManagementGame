@@ -19,4 +19,6 @@ public interface PlayerDao {
 	void buyPlayer(Player player);
 
 	Player getPlayersBasedOnId(int id);
+
+	Player createPlayer(Player player);
 }

@@ -14,4 +14,6 @@ public interface PlayerService {
 
 	void buyPlayer(int id);
 
+	Player createPlayer(Player player);
+
 }

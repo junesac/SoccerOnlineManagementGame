@@ -58,4 +58,9 @@ public class PlayerServiceImpl implements PlayerService {
 		playerDao.buyPlayer(player);
 	}
 
+	@Override
+	public Player createPlayer(Player player) {
+		return playerDao.createPlayer(player);
+	}
+
 }
