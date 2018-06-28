@@ -10,7 +10,7 @@ public interface TeamService {
 
 	List<Team> getAllTeams();
 
-	void saveTeam(Team team);
+	void updateTeam(Team team);
 
 	Team getTeamById(int id);
 

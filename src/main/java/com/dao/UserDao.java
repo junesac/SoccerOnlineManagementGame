@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.model.User;
 
-@Repository("userDao")
+@Repository
 public interface UserDao {
 
 	User createUser(User user);
@@ -16,5 +16,7 @@ public interface UserDao {
 	void makeAdmin(Long userId);
 
 	void makeUser(Long userId);
+
+	void checkUserNameAvailable(String userName);
 
 }

@@ -34,9 +34,9 @@ public class TeamController {
 		return teamService.getAllTeams();
 	}
 
-	@RequestMapping(value = "/saveTeam", method = RequestMethod.PUT)
-	public void saveTeam(@RequestBody Team team) {
-		teamService.saveTeam(team);
+	@RequestMapping(value = "/updateTeam", method = RequestMethod.PUT)
+	public void updateTeam(@RequestBody Team team) {
+		teamService.updateTeam(team);
 	}
 
 }

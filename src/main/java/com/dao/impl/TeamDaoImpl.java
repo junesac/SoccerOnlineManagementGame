@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.constants.AppConstants;
 import com.dao.TeamDao;
+import com.helper.AppUtility;
 import com.mapper.TeamMapper;
+import com.model.Player;
 import com.model.Team;
 
 @Repository
@@ -19,11 +22,9 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public Team getTeam(String owner) {
 
-		String query = "select t.id as id,t.team_name as teamName, t.country as country, "
-				+ "t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.owner = ?";
+		String query = AppConstants.GET_TEAM + " where t.owner = ?";
 		Team team = jdbcTemplate.queryForObject(query, new Object[] { owner }, new TeamMapper());
 		return team;
-
 	}
 
 	@Override
@@ -33,7 +34,7 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public void saveTeam(Team team) {
+	public void updateTeam(Team team) {
 		String query = "update team set team_name = ?, country = ?, team_budget = ?  where id = ?";
 		jdbcTemplate.update(query, team.getTeamName(), team.getCountry().toString(), team.getTeamBudget().intValue(),
 				team.getId());
@@ -41,10 +42,25 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override
 	public Team getTeamById(int id) {
-		String query = "select t.id as id,t.team_name as teamName, t.country as country, "
-				+ "t.TEAM_BUDGET as teamBudget, t.owner as owner from team t where t.id = ?";
+		String query = AppConstants.GET_TEAM + " where t.id = ?";
 		Team team = jdbcTemplate.queryForObject(query, new Object[] { id }, new TeamMapper());
 		return team;
+	}
+
+	@Override
+	public void addPlayerToTeam(Player player) {
+
+		String owner = AppUtility.getOwner();
+		this.jdbcTemplate.update("update team set team_budget = team_budget - ? where owner = ?",
+				player.getMarketValue().intValue(), owner);
+	}
+
+	@Override
+	public void createTeam(Team team) {
+
+		jdbcTemplate.update("INSERT INTO team (id, team_name, country, team_budget, owner) VALUES (?, ?, ?,  ?, ?)",
+				team.getId(), team.getTeamName(), team.getCountry().toString(), team.getTeamBudget().intValue(),
+				team.getOwner());
 	}
 
 }

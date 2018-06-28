@@ -8,8 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dao.CommonDao;
+import com.dao.PlayerDao;
+import com.dao.TeamDao;
 import com.dao.UserDao;
 import com.helper.AppUtility;
+import com.helper.TeamUtility;
+import com.model.Player;
+import com.model.Team;
 import com.model.User;
 import com.service.UserService;
 
@@ -19,10 +25,49 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private TeamDao teamDao;
+
+	@Autowired
+	private CommonDao commonDao;
+
+	@Autowired
+	private PlayerDao playerDao;
+
 	@Override
 	@Transactional
 	public User createUser(User user) {
-		return userDao.createUser(user);
+
+		userDao.checkUserNameAvailable(user.getUserName());
+
+		Long id = commonDao.getMaxId("userid", "users1");
+		user.setUserId(id + 1);
+		User result = userDao.createUser(user);
+
+		Team team = createTeam(user);
+		createPlayers(user, team);
+		return result;
+	}
+
+	private void createPlayers(User user, Team team) {
+		Long playerId = commonDao.getMaxId("id", "player");
+		playerId++;
+
+		List<Player> players = team.getPlayers();
+		for (Player player : players) {
+			player.setOwner(user.getUserName());
+			player.setId(playerId++);
+			playerDao.createPlayer(player);
+		}
+	}
+
+	private Team createTeam(User user) {
+		Long teamId = commonDao.getMaxId("id", "team");
+		Team team = TeamUtility.getTeam();
+		team.setId(teamId + 1);
+		team.setOwner(user.getUserName());
+		teamDao.createTeam(team);
+		return team;
 	}
 
 	@Override

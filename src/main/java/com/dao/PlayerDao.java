@@ -14,7 +14,7 @@ public interface PlayerDao {
 
 	List<Player> getPlayersBasedOnOwner(String owner);
 
-	void savePlayers(List<Player> players);
+	void updatePlayers(List<Player> players);
 
 	void buyPlayer(Player player);
 

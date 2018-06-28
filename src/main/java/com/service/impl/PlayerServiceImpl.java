@@ -7,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dao.CommonDao;
+import com.dao.NotificationDao;
 import com.dao.PlayerDao;
 import com.dao.TeamDao;
 import com.helper.AppUtility;
@@ -22,6 +24,12 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
 	private TeamDao teamDao;
+
+	@Autowired
+	private CommonDao commonDao;
+
+	@Autowired
+	private NotificationDao notificationDao;
 
 	@Override
 	@PreAuthorize("@accessManager.hasRole({ 'USER', 'ADMIN' })")
@@ -49,17 +57,24 @@ public class PlayerServiceImpl implements PlayerService {
 		String owner = AppUtility.getOwner();
 
 		Player player = playerDao.getPlayersBasedOnId(id);
-		Team team = teamDao.getTeam(owner);
 
+		// Fetching team to check budget
+		Team team = teamDao.getTeam(owner);
 		if (team.getTeamBudget().intValue() < player.getMarketValue().intValue()) {
 			throw new RuntimeException("Team budget should be more than player value");
 		}
-
+		Long notificationId = commonDao.getMaxId("id", "notifications");
+		notificationDao.createNotification(notificationId, player);
+		teamDao.addPlayerToTeam(player);
 		playerDao.buyPlayer(player);
 	}
 
 	@Override
+	@Transactional
+	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public Player createPlayer(Player player) {
+		Long playerId = commonDao.getMaxId("id", "player");
+		player.setId(playerId + 1);
 		return playerDao.createPlayer(player);
 	}
 

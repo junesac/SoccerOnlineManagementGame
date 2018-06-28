@@ -12,7 +12,7 @@ app.service('TeamService', function($http, CommonService) {
 
 	this.saveChanges = function(team) {
 		var config = CommonService.getConfig();
-		return $http.put(baseUrlForTeam + '/saveTeam', team, config);
+		return $http.put(baseUrlForTeam + '/updateTeam', team, config);
 	}
 
 	this.getAllTeams = function() {

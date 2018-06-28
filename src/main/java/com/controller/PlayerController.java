@@ -20,7 +20,7 @@ public class PlayerController {
 	private PlayerService playerService;
 
 	@RequestMapping(value = "/addToTransferList/{id}", method = RequestMethod.PUT)
-	public void getTeam(@PathVariable("id") int id) {
+	public void addToTransferList(@PathVariable("id") int id) {
 		playerService.addToTransferList(id);
 	}
 

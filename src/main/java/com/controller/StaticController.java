@@ -31,10 +31,4 @@ public class StaticController {
 		return map;
 	}
 
-	public static void main(String[] args) {
-		StaticController controller = new StaticController();
-		System.out.println(controller.getAllCountries());
-		System.out.println(controller.getAllPlayerTypes());
-	}
-
 }
