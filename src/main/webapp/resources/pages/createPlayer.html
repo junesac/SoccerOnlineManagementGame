@@ -72,28 +72,6 @@
 			</div>
 
 			<div class="form-group">
-				<label for="marketValue" class="col-sm-2 control-label">Should
-					move in market</label>
-				<div class="col-xs-3">
-					<input type="checkbox" ng-model="player.presentOnTransferList"
-						required>
-				</div>
-			</div>
-
-			<!--  ng-show="!player.PRESENT_ON_TRANSFER_LIST"> -->
-			<div class="form-group">
-				<label for="owner" class="col-sm-2 control-label">Owner</label>
-				<div class="col-xs-3">
-					<select ng-model="player.owner" required
-						ng-options="team.owner as team.owner for team in allTeams"></select>
-				</div>
-				<span
-					ng-show="myForm.owner.$touched && myForm.owner.$error.required">Owner
-					is required.</span>
-			</div>
-
-
-			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="button" class="btn btn-default"
 						ng-disabled="(myForm.firstName.$dirty && myForm.firstName.$invalid) || (myForm.lastName.$dirty && myForm.lastName.$invalid) || (myForm.country.$dirty && myForm.country.$invalid)|| (myForm.age.$dirty && myForm.age.$invalid)|| (myForm.marketValue.$dirty && myForm.marketValue.$invalid)"

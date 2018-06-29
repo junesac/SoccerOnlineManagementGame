@@ -75,6 +75,8 @@ public class PlayerServiceImpl implements PlayerService {
 	public Player createPlayer(Player player) {
 		Long playerId = commonDao.getMaxId("id", "player");
 		player.setId(playerId + 1);
+		player.setOwner("");
+		player.setPresentOnTransferList(true);
 		return playerDao.createPlayer(player);
 	}
 
