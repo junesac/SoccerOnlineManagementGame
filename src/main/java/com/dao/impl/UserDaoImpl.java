@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.dao.UserDao;
-import com.exception.UserException;
+import com.exception.SoccerManagementException;
 import com.mapper.UserMapper;
 import com.model.User;
 
@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
 				new Object[] { userName.toLowerCase() }, Integer.class);
 
 		if (count != 0) {
-			throw new UserException("User Already exist.");
+			throw new SoccerManagementException("User Already exist.");
 		}
 	}
 
