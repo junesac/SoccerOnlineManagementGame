@@ -91,6 +91,7 @@ app.controller('TransferListController', function($rootScope, CommonService,
 			}			
 			$scope.players = $scope.players.filter((player) => player.id != id);
 			$scope.filterData = $scope.players;
+			swal('Player is added in the team.');
 		}, function(error) {
 			swal('Unable to Purchase player : ' + error.data.message);
 		});
