@@ -21,7 +21,7 @@ app.controller('CreatePlayerController', function($scope, $rootScope,
 			console.log(response.data);
 			$scope.player = {};
 		}, function(error) {
-			swal('Unable to create player.');
+			swal('Unable to create player : ' + error.data.message);
 		});
 	}
 

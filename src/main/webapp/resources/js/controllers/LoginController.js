@@ -27,6 +27,7 @@ app.controller('LoginController', function($rootScope, $scope, $location, Common
 					CommonService.auth = '';
 					$rootScope.admin = false;
 					$rootScope.user = false;
+					swal('Unable to login : ' + error.data.message);
 					$location.path('/');
 				});
 	};

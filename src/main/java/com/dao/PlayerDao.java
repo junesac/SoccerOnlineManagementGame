@@ -21,4 +21,6 @@ public interface PlayerDao {
 	Player getPlayersBasedOnId(int id);
 
 	Player createPlayer(Player player);
+
+	int checkPlayerNameAvailable(Player player);
 }

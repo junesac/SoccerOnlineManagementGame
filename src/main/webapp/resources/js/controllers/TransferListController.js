@@ -54,6 +54,7 @@ app.controller('TransferListController', function($rootScope, CommonService,
 				$scope.filterData.filter((player) => player.teamName.toLocaleLowerCase().includes($scope.filter.teamName.toLocaleLowerCase()));
 		}
 		
+		// if($scope.filterData)
 	}
 
 	
@@ -63,7 +64,7 @@ app.controller('TransferListController', function($rootScope, CommonService,
 			$scope.players = response.data;
 			$scope.filterData = $scope.players;
 		}, function(error) {
-			swal('Unable to load Transfer List.');
+			swal('Unable to load Transfer List : ' + error.data.message);
 		});
 	}
 	$scope.loadTransferList();
@@ -71,7 +72,6 @@ app.controller('TransferListController', function($rootScope, CommonService,
 	$scope.buyPlayer = function(id) {
 		const player = $scope.players.filter((player) => player.id === id);
 		if(CommonService.team.teamBudget < player[0].marketValue) {
-			console.log("can't buy player. check your budget");
 			swal("can't buy player. check your budget");
 			return;
 		}
@@ -80,10 +80,19 @@ app.controller('TransferListController', function($rootScope, CommonService,
 			CommonService.team.players.push(player[0]);
 			CommonService.team.teamBudget -= player[0].marketValue;
 			CommonService.team.teamValue += player[0].marketValue;
+			
+			if(CommonService.allTeams.length > 0) {
+				for (var i in CommonService.allTeams) {
+					if (CommonService.allTeams[i].id == CommonService.team.id) {
+						CommonService.allTeams[i].teamBudget =  CommonService.team.teamBudget;
+						break; 
+					}
+				}
+			}			
 			$scope.players = $scope.players.filter((player) => player.id != id);
 			$scope.filterData = $scope.players;
 		}, function(error) {
-			swal('Unable to Purchase player.');
+			swal('Unable to Purchase player : ' + error.data.message);
 		});
 	}
 	

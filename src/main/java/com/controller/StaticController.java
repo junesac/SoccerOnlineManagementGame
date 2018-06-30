@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exception.SoccerManagementException;
 import com.model.Country;
 import com.model.PlayerType;
 
@@ -20,8 +19,7 @@ public class StaticController {
 		for (Country country : Country.values()) {
 			map.put(country.toString(), country.getName());
 		}
-		throw new SoccerManagementException("Facing issue");
-		// return map;
+		return map;
 	}
 
 	@RequestMapping("/getAllPlayerTypes")

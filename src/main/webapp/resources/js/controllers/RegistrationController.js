@@ -8,7 +8,6 @@ app.controller('RegistrationController',
 
 					$scope.register = function() {
 						console.log('user to register : ' + $scope.user);
-
 						if ($scope.user.userName == null
 								|| $scope.user.userName === '') {
 							swal('Please enter The username name.');
@@ -23,7 +22,8 @@ app.controller('RegistrationController',
 										swal('User Created Successfully!!!');
 										$location.path('/login');
 									}, function(error) {
-										swal('Exception: user already exist.');
+										swal('Unable to Create user : ' + error.data.message);
+										
 									});
 						}
 					}

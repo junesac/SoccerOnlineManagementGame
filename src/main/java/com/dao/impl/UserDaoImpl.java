@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.dao.UserDao;
-import com.exception.SoccerManagementException;
 import com.mapper.UserMapper;
 import com.model.User;
 
@@ -38,14 +37,11 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void checkUserNameAvailable(String userName) {
+	public int checkUserNameAvailable(String userName) {
 
-		int count = jdbcTemplate.queryForObject("SELECT count(1) FROM users1 u where lower(u.userName) = ? ",
+		return jdbcTemplate.queryForObject("SELECT count(1) FROM users1 where lower(userName) = ? ",
 				new Object[] { userName.toLowerCase() }, Integer.class);
 
-		if (count != 0) {
-			throw new SoccerManagementException("User Already exist.");
-		}
 	}
 
 	@Override

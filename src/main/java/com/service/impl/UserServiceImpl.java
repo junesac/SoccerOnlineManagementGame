@@ -12,6 +12,7 @@ import com.dao.CommonDao;
 import com.dao.PlayerDao;
 import com.dao.TeamDao;
 import com.dao.UserDao;
+import com.exception.SoccerManagementException;
 import com.helper.AppUtility;
 import com.helper.TeamUtility;
 import com.model.Player;
@@ -38,7 +39,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User createUser(User user) {
 
-		userDao.checkUserNameAvailable(user.getUserName());
+		AppUtility.checkNameLength(user.getUserName());
+
+		int count = userDao.checkUserNameAvailable(user.getUserName());
+		if (count != 0) {
+			throw new SoccerManagementException("User Already exist.");
+		}
 
 		Long id = commonDao.getMaxId("userid", "users1");
 		user.setUserId(id + 1);

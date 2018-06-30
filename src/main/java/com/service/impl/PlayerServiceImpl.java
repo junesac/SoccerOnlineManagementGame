@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.dao.CommonDao;
 import com.dao.NotificationDao;
 import com.dao.PlayerDao;
 import com.dao.TeamDao;
+import com.exception.SoccerManagementException;
 import com.helper.AppUtility;
 import com.model.Player;
 import com.model.Team;
@@ -60,21 +63,40 @@ public class PlayerServiceImpl implements PlayerService {
 
 		// Fetching team to check budget
 		Team team = teamDao.getTeam(owner);
-		if (team.getTeamBudget().intValue() < player.getMarketValue().intValue()) {
-			throw new RuntimeException("Team budget should be more than player value");
-		}
+		checkTeamBudget(player, team);
+
 		Long notificationId = commonDao.getMaxId("id", "notifications");
 		notificationDao.createNotification(notificationId, player);
 		teamDao.addPlayerToTeam(player);
 		playerDao.buyPlayer(player);
 	}
 
+	private void checkTeamBudget(Player player, Team team) {
+		if (team.getTeamBudget().intValue() < player.getMarketValue().intValue()) {
+			throw new SoccerManagementException("Team budget should be more than player value.");
+		}
+	}
+
 	@Override
 	@Transactional
 	@PreAuthorize("@accessManager.hasRole({ 'ADMIN' })")
 	public Player createPlayer(Player player) {
+
+		checkNotNull(player.getFirstName());
+		checkNotNull(player.getLastName());
+
+		AppUtility.checkNameLength(player.getFirstName(), player.getLastName());
+		AppUtility.checkAge(player.getAge());
+
+		playerDao.checkPlayerNameAvailable(player);
+
 		Long playerId = commonDao.getMaxId("id", "player");
 		player.setId(playerId + 1);
+
+		/**
+		 * Set the owner blank& put the player on transfer list.. As admin
+		 * should put any player in the team.
+		 */
 		player.setOwner("");
 		player.setPresentOnTransferList(true);
 		return playerDao.createPlayer(player);

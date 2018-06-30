@@ -19,7 +19,7 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		TeamService.saveChanges(team).then(function(response) {
 			swal('Changes saved.');
 		}, function(error) {
-			swal('Unable to Save changes.');
+			swal('Unable to Save changes of the team : ' + error.data.message);
 		});
 	}
 
@@ -28,6 +28,7 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		PlayerService.addToTransferList(id).then(function(response) {
 			console.log('updated Player details');
 		}, function(error) {
+			swal('Unable to add player to transfer list : ' + error.data.message);
 		});
 	}
 	
@@ -36,6 +37,7 @@ app.controller('TeamController', function($scope, $rootScope, $location,
 		PlayerService.removeFromTransferList(id).then(function(response) {
 			console.log('updated Player details');
 		}, function(error) {
+			swal('Unable to remove player from the transfer list : ' + error.data.message);
 		});
 	}
 	

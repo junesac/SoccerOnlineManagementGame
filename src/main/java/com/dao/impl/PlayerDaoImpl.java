@@ -79,4 +79,14 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
+	@Override
+	public int checkPlayerNameAvailable(Player player) {
+
+		return jdbcTemplate.queryForObject(
+				"SELECT count(1) FROM player where lower(first_name) = ? and lower(last_name) = ? ",
+				new Object[] { player.getFirstName().toLowerCase(), player.getLastName().toLowerCase() },
+				Integer.class);
+
+	}
+
 }

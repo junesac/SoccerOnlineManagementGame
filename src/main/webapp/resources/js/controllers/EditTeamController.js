@@ -19,7 +19,7 @@ app.controller('EditTeamController', function($scope, $rootScope, $location,
 			$scope.team = response.data;
 			$scope.updateScore();
 		}, function(error) {
-			swal('Unable to get Team by id : .' + $scope.id);
+			swal('Unbale to getTeamById :  ' + error.data.message);
 		});
 	}
 	$scope.getTeamById();
@@ -36,7 +36,7 @@ app.controller('EditTeamController', function($scope, $rootScope, $location,
 			$scope.updateScore();
 			CommonService.updateAllTeams($scope.team);
 		}, function(error) {
-			swal('Unable to Save changes.');
+			swal('Unable to save changes : ' + error.data.message);
 		});
 	}
 

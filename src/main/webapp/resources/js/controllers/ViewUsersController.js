@@ -5,8 +5,6 @@ var app = angular.module('SoccerManagementApp.ViewUsers', []);
 app.controller('ViewUsersController', function($scope, $rootScope, $location,
 		UserService, CommonService) {
 	
-	
-	
 	if (!$rootScope.authenticated) {
 		$location.path('/login');
 	}
@@ -17,14 +15,13 @@ app.controller('ViewUsersController', function($scope, $rootScope, $location,
 			CommonService.users = response.data;
 			$scope.users = CommonService.users;
 		}, function(error) {
-			swal('Unable to get users.');
+			swal('Unable to get users : ' + error.data.message);
 		});
 	}
 	$scope.getAllUsers();
 
 	$scope.makeAdmin = function(userId) {
 		UserService.makeAdmin(userId).then(function(response) {
-			console.log('abc', CommonService.users);
 			CommonService.users.forEach((u) => {
 				if(u.userId === userId && u.roles.indexOf('Admin') == -1) {
 					u.roles.push('Admin');
@@ -32,7 +29,7 @@ app.controller('ViewUsersController', function($scope, $rootScope, $location,
 			});
 			
 		}, function(error) {
-			swal('Unable to make admin.');
+			swal('Unable to make admin : ' + error.data.message);
 		});
 	}
 
@@ -44,13 +41,12 @@ app.controller('ViewUsersController', function($scope, $rootScope, $location,
 				}
 			});
 		}, function(error) {
-			swal('Unable to make admin.');
+			swal('Unable to make user : ' + error.data.message);
 		});
 	}
 
 	$scope.checkIfAdmin = function(roles) {
 		return roles.indexOf('Admin') > -1;
 	}
-
 
 });

@@ -15,7 +15,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			CommonService.countries = response.data;
 			console.log(response.data);
 		}, function(error) {
-			swal('Unable to load Countries.');
+			swal('Unable to load countries : ' + error.data.message);
 		});
 	}
 	$scope.getAllCountries();
@@ -25,7 +25,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			CommonService.playerTypes = response.data;
 			console.log(response.data);
 		}, function(error) {
-			swal('Unable to load PlayerTypes.');
+			swal('Unable to load PlayerTypes : ' + error.data.message);
 		});
 	}
 	$scope.getAllPlayerTypes();
@@ -34,7 +34,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 		TeamService.getTeam().then(function(response) {
 			CommonService.setTeam(response.data);
 		}, function(error) {
-			swal('Unable to load Team details.');
+			swal('Unable to load Team details : ' + error.data.message);
 		});
 	}
 	$scope.loadTeam();
@@ -43,7 +43,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 		NotificationService.getNotifications().then(function(response) {
 			$scope.notifications = response.data;
 		}, function(error) {
-			swal('Unable to get notifications.');
+			swal('Unable to get notifications : ' + error.data.message);
 		});
 	}
 	$scope.getNotifications();
@@ -53,7 +53,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			var notification = $scope.notifications.filter(x => x.id === id);
 			notification[0].seen = true;
 		}, function(error) {
-			swal('Unable to mark notification read.');
+			swal('Unable to mark notification read : ' + error.data.message);
 		});
 	}
 	
@@ -62,7 +62,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			var notification = $scope.notifications.filter(x => x.id === id);
 			notification[0].seen = false;
 		}, function(error) {
-			swal('Unable to mark notification unread.');
+			swal('Unable to mark notification unread : ' + error.data.message);
 		});
 	}
 
@@ -71,7 +71,7 @@ app.controller('HomeController', function($scope, $rootScope, $location,
 			CommonService.setAllTeams(response.data); 
 			
 		}, function(error) {
-			swal('Unable to load all Teams.');
+			swal('Unable to load all Teams : ' + error.data.message);
 		});
 	}
 	if($scope.admin) {

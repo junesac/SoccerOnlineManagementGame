@@ -17,6 +17,6 @@ public interface UserDao {
 
 	void makeUser(Long userId);
 
-	void checkUserNameAvailable(String userName);
+	int checkUserNameAvailable(String userName);
 
 }

@@ -40,6 +40,9 @@ public class TeamServiceImpl implements TeamService {
 	public List<Team> getAllTeams() {
 		List<Team> teams = teamDao.getAllTeams();
 
+		/**
+		 * We don't need player informations at the loading time of all teams.
+		 */
 		// for (Team team : teams) {
 		// List<Player> players =
 		// playerDao.getPlayersBasedOnOwner(team.getOwner());
