@@ -19,12 +19,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/createUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
 		return userService.createUser(user);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public User login(@RequestBody User user) {
 		return userService.login(user);
 	}
