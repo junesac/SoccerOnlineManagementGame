@@ -85,7 +85,8 @@ public class PlayerServiceImpl implements PlayerService {
 		checkNotNull(player.getFirstName());
 		checkNotNull(player.getLastName());
 
-		AppUtility.checkNameLength(player.getFirstName(), player.getLastName());
+		AppUtility.checkMaximumNameLength(player.getFirstName(), player.getLastName());
+		AppUtility.checkMinimumNameLength(player.getFirstName(), player.getLastName());
 		AppUtility.checkAge(player.getAge());
 
 		playerDao.checkPlayerNameAvailable(player);

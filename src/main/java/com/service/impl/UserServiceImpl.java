@@ -39,7 +39,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User createUser(User user) {
 
-		AppUtility.checkNameLength(user.getUserName());
+		AppUtility.checkMaximumNameLength(user.getUserName());
+		AppUtility.checkMinimumNameLength(user.getUserName());
 
 		int count = userDao.checkUserNameAvailable(user.getUserName());
 		if (count != 0) {
